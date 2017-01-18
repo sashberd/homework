@@ -1,0 +1,9 @@
+﻿<!--<div ng-repeat="data in widget.widgetData">
+    <nvd3 options="widget.widgetOptions" data="data" api="widget.api" on-ready="widget.onReadyCallback"></nvd3>
+</div>-->
+<nvd3 ng-repeat="data in widget.widgetData" options="(widget.widgetOptions|filter:dashboardCtrl.getWidgetOption(data[0]))[0]" data="data" api="widget.widgetApi[$index]" on-ready="widget.onReadyCallback" config="{ deepWatchDataDepth: 0}"></nvd3>
+<!--<div ng-repeat="data in widget.widgetData">
+    <canvas id="line" class="chart chart-line" chart-data="data"
+        chart-labels="widget.widgetLabel" chart-series="series" chart-options="widget.widgetOptions"></canvas>
+</div>-->
+

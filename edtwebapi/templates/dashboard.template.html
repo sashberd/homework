@@ -1,0 +1,36 @@
+﻿<uib-accordion>
+<div uib-accordion-group class="panel-default" is-open="dashboardCtrl.isCustomHeaderOpen" >
+    <uib-accordion-heading>
+     {{ dashboardCtrl.isCustomHeaderOpen ? 'Hide widget panel' : 'Show widget panel'}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': dashboardCtrl.isCustomHeaderOpen, 'glyphicon-chevron-right': !dashboardCtrl.isCustomHeaderOpen}"></i>
+      </uib-accordion-heading>
+     
+      <button class="btn " ng-class="{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}" 
+          ng-click="dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');">First Button</button><!--IDLE TIME-CURRENT STATUS-->
+
+      <button class="btn " ng-class="{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}" 
+          ng-click="dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');">Second Button</button><!--Irrigation Motor status-->
+   
+</div>
+      </uib-accordion>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <!--<div dashboard="dashboardCtrl.dashboardOptions" class="dashboard-container"></div>-->
+        <div gridster="dashboardCtrl.gridsterOptions" >
+            <ul>
+                <li gridster-item="widget" ng-repeat="widget in dashboardCtrl.widgets">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3>{{ widget.name }}</h3>
+                            <div class="box-header-btns pull-right">
+                                <a title="settings" ng-click="dashboardCtrl.openSettings(widget)"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a title="Remove widget" ng-click="dashboardCtrl.remove(widget)"><i class="glyphicon glyphicon-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content" ng-include="widget.template">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+.btn-float-right {
+    float: right;
+    margin-top: -5px;
+}
+
+.label-refuel {
+    margin-right: 10px;
+    display: block;
+}
+
+#cbxPumps, #cbxDrivers, #cbxTypeandSource, #cbxRefuelTags, .overlay-wrapper {
+    min-width: 300px;
+    max-width: 300px;
+}
+
+#driverscbx {
+    text-align: left;
+}
+
+#btnOpenStartDateCalendar, #btnOpenEndDateCalendar {
+    display: block;
+}
+
+#startTimeDiv, #endTimeDiv {
+    margin-top: -10px;
+}
+
+.overlay-x {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    color: red;
+}
+
+.overlay-wrapper {
+    position: relative;
+}
+
+.ui-grid-header-cell-label {
+    display: inline-block;
+    white-space: initial;
+    text-align: center;
+}
+
+.ui-grid-header-cell, .ui-grid-cell-contents {
+    text-align: center;
+}
+
+.ui-grid-invisible {
+    display: none;
+}
+
+#refuelGrid {
+    font-size: 12px;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.25;
+    font-size: 3em;
+    width: 100%;
+    text-align: center;
+    z-index: 1000;
+}
+.ui-grid-cell select option[selected="selected"][value="?"] {
+    display:none;
+}
+
+.grid {
+  height: 95vh;
+}
+
+

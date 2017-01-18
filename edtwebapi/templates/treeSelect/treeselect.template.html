@@ -1,0 +1,6 @@
+﻿<input type="text" class="form-control" ng-model="groupTreeQuery" placeholder="Search group..."/>
+<div class='form-group' ivh-treeview='groupTreeData' ivh-treeview-use-checkboxes="false" ivh-treeview-on-toggle="selectedGroupCallback(ivhNode, ivhIsSelected, ivhTree)"  ivh-treeview-filter="groupTreeQuery">
+    <div class='gridSpinne' ng-show='isGroupsLoading'></div>
+</div>
+
+

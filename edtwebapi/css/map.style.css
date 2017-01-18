@@ -1,0 +1,196 @@
+﻿#mapLegendaDiv
+{
+    margin-left: 20px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+    #mapLegendaDiv > label
+    {
+        margin: 0px 30px 0px 50px;
+        line-height: 35px;
+    }
+
+    #mapLegendaDiv > img
+    {
+        cursor: pointer;
+    }
+
+
+
+    #mapLegendaDiv > a
+    {
+        background-repeat: no-repeat;
+        position: absolute;
+        height: 33px;
+        width: 33px;
+        margin-bottom: 10px;
+    }
+
+        #mapLegendaDiv > a.active
+        {
+            border: 1px solid #2098D1;
+        }
+
+.mapSumLabel
+{
+    margin-right: 10px;
+}
+
+.sum-frac
+{
+    font-size: 1.5em;
+    font-weight: 100;
+    vertical-align: middle;
+}
+
+.mapAlertLink
+{
+    background-image: url(images/car_alert.png);
+}
+
+.mapMotionLink
+{
+    background-image: url(images/car_in_motion.png);
+}
+
+.mapEngineOffLink
+{
+    background-image: url(images/car_engine_off.png);
+}
+
+.mapIdleLink
+{
+    background-image: url(images/car_idle.png);
+}
+
+.mapSumSign
+{
+    background-image: url(images/sum_sign.png);
+    cursor: default;
+}
+/*grid css*/
+#mapCarsDataGrid
+{
+    width: 670px;
+}
+
+.carIdleLight
+{
+    display: block;
+    margin: 5px 15px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    background-color: #666;
+    /* border-top: 1px solid rgba(255,255,255,0.8);*/
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+    -moz-border-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+    -webkit-border-shadow: 0 0 4px rgba(0,0, 0, 0.8);
+    box-shadow: 0 0 4px rgba(0,0,0,0.8);
+    background-image: -webkit-gradient(radial,50% 0,100,50% 0,0, from(rgba(255,255,255,0)), to(rgba(255,255,255,0.38)));
+    background-image: -moz-radial-gradient(top, ellipse cover, rgba(255,255,255,0.38) 0%,rgba(255,255,255m0.38) 100%);
+    background-image: -webkit-radial-gradient(top, ellipse cover, rgba(255,255,255,0.38) 0%,rgba(255,255,255m0.38) 100%);
+    background-image: radial-gradient(top, ellipse cover, rgba(255,255,255,0.38) 0%,rgba(255,255,255m0.38) 100%);
+}
+
+.carInMotionLight
+{
+    background-color: #00008B;
+}
+
+.carInIdleLight
+{
+    background-color: #B200FF;
+}
+
+.carAlertLight
+{
+    background-color: #D10A11;
+}
+
+.grid .ui-grid-row .alert-no
+{
+    color: #388ab2;
+}
+
+.grid .ui-grid-row .alert-ominous
+{
+    color: orange;
+}
+
+.grid-tooltip
+{
+    overflow: visible;
+    z-index: 9999999;
+    float: left;
+}
+
+@keyframes gridSpinner
+{
+    to
+    {
+        transform: rotate(360deg);
+    }
+}
+
+.gridSpinner
+{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+}
+
+    .gridSpinner:before
+    {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        margin-left: -10px;
+        border-radius: 50%;
+        border-top: 2px solid #07d;
+        border-right: 2px solid transparent;
+        animation: gridSpinner .6s linear infinite;
+    }
+
+.mapGridFilters
+{
+    margin-top: 10px;
+    margin-left: 15px !important;
+}
+
+    .mapGridFilters > div > input[type=text]
+    {
+        max-width: 180px;
+    }
+
+#btnFilterButton
+{
+    margin-left: 50px;
+}
+
+    #btnFilterButton > span
+    {
+        background-image: url(images/filter_delete.png);
+        height: 32px;
+        width: 32px;
+    }
+
+#btnApplyOnMap
+{
+    margin-left: 60px;
+}
+
+    #btnApplyOnMap > span
+    {
+        background-image: url(images/earth.png);
+        height: 32px;
+        width: 32px;
+    }

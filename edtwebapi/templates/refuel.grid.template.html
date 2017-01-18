@@ -1,0 +1,87 @@
+﻿<uib-accordion>
+   <div uib-accordion-group class='panel-info' is-open='refuelCtrl.isOpen'>
+      <uib-accordion-heading>
+         Refuel Search Panel
+         <button type='button' class='btn btn-primary btn-sm  btn-float-right' >Close</button>
+      </uib-accordion-heading>
+      <div class="row">
+         <div class="col-lg-3">
+            <label class='label-refuel' for='cbxPumps'>Pump: </label>
+              <div class="overlay-wrapper">
+               <span class="overlay-x" ng-show="refuelCtrl.pumpSelectedItem!=null" ng-click="refuelCtrl.pumpSelectedItem=null">X</span>
+               <input id="cbxPumps" placeholder="Start type pump name or id" type="text" ng-model="refuelCtrl.pumpSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onPumpSelected($item, $model, $label, $event);"
+                  uib-typeahead="pumpData as pump.LIST_ITEM_DISPLAY_NAME_ID for pump in refuelCtrl.filterPumps($viewValue)" class="form-control">
+              
+            </div>            
+         </div>
+         <div class="col-lg-3">
+            <label class='label-refuel' for='cbxDrivers'>Driver: </label>
+            <div class="overlay-wrapper">
+               <span class="overlay-x" ng-show="refuelCtrl.driverSelectedItem!=null" ng-click="refuelCtrl.driverSelectedItem=null">X</span>
+               <input id="cbxDrivers" placeholder="Start type driver name or id" type="text" ng-model="refuelCtrl.driverSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onDriverSelected($item, $model, $label, $event);"
+                  uib-typeahead="driverData as (driver.DriverBBID +'&emsp;&emsp;&emsp;'+ driver.DriverName) for driver in refuelCtrl.filterDrivers($viewValue)" class="form-control">
+              
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <p class="input-group">
+               <label for="txtStartDate">Start Date: </label>
+               <input id="txtStartDate" placeholder="dd/MM/yyyy" type="text" class="form-control" uib-datepicker-popup="{{refuelCtrl.format}}" ng-model="refuelCtrl.startDateTime" is-open="refuelCtrl.startDateTimeData.opened" 
+                  datepicker-options="refuelCtrl.dateOptions"  close-text="Close" alt-input-formats="refuelCtrl.altInputFormats" />
+               <span class="input-group-btn" id="btnOpenStartDateCalendar">
+               <button type="button"  class="btn btn-default" ng-click="refuelCtrl.startDateOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+               </span>
+            </p>
+         </div>
+         <div class="col-lg-3" id="startTimeDiv">
+            <div uib-timepicker ng-model="refuelCtrl.startTime"   show-meridian="false"></div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-lg-3">
+            <label class='label-refuel' for='cbxTypeandSource'>Type and source: </label>
+            <div class='btn-group' uib-dropdown keyboard-nav>
+               <button id='cbxTypeandSource' type='button' class='btn btn-default' uib-dropdown-toggle>
+               {{refuelCtrl.selectedRefuelTypeAndSourceOption.PHRASE_NAME || 'Select type and source' }} <span class='caret'></span>
+               </button>
+               <ul class='dropdown-menu' uib-dropdown-menu role='menu' aria-labelledby='simple-btn-keyboard-nav'>
+                  <li role="menuitem" ng-repeat="typeandsource in refuelCtrl.typesAndSourcesList">                             
+                     <a href="" ng-click="refuelCtrl.changeTypeAndSourceSelectedItem(typeandsource)">{{ typeandsource.PHRASE_NAME }}</a>                            
+                  </li>
+               </ul>
+            </div>
+         </div>
+         <div class="col-lg-3">
+            <label class='label-refuel' for='cbxRefuelTags'>Tag ID: </label>
+            <div class="overlay-wrapper">
+               <span class="overlay-x"  ng-show="refuelCtrl.tagSelectedItem!=null" ng-click="refuelCtrl.tagSelectedItem=null">X</span>
+               <input id="cbxRefuelTags" placeholder="Start type tag id" type="text" ng-model="refuelCtrl.tagSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onTagSelected($item, $model, $label, $event);"
+                  uib-typeahead="tagData as (tag.V_BB_VEHICLE_ID +'&emsp;&emsp;&emsp;'+ tag.ID) for tag in refuelCtrl.filterTags($viewValue)" class="form-control">
+            </div>
+         </div>
+
+          <div class="col-lg-3">
+            <p class="input-group">
+               <label for="txtEndDate">End Date: </label>
+               <input id="txtEndDate" placeholder="dd/MM/yyyy" type="text" class="form-control" uib-datepicker-popup="{{refuelCtrl.format}}" ng-model="refuelCtrl.endDateTime" is-open="refuelCtrl.endDateTimeData.opened" 
+                  datepicker-options="refuelCtrl.dateOptions"  close-text="Close" alt-input-formats="refuelCtrl.altInputFormats" />
+               <span class="input-group-btn" id="btnOpenEndDateCalendar">
+               <button type="button"  class="btn btn-default" ng-click="refuelCtrl.endDateOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+               </span>
+            </p>
+         </div>
+         <div class="col-lg-3" id="endTimeDiv">
+            <div uib-timepicker ng-model="refuelCtrl.endTime"   show-meridian="false"></div>
+         </div>
+      </div>
+       <div class="row  col-lg-offset-11">
+           <button id="searchButton" class="btn btn-primary" ng-click="refuelCtrl.checkSearchFilters()">Search</button>
+       </div>
+   </div>
+</uib-accordion>
+<div uib-alert ng-show="refuelCtrl.errorMessageData.refuelErrorMessage.length" ng-class="'alert-' + (refuelCtrl.errorMessageData.refuelAlertType || 'danger')">{{refuelCtrl.errorMessageData.refuelErrorMessage}}</div>
+
+<div id="refuelGrid" ui-grid="refuelCtrl.gridOptions" ui-grid-auto-fit-columns ui-grid-edit ui-grid-row-edit ui-grid-validate class="grid">
+    <span us-spinner="{radius:30, width:8, length: 16,color:'black'}" spinner-on="refuelCtrl.loading"></span>
+    <div class="watermark" ng-show="!refuelCtrl.gridOptions.data.length && !refuelCtrl.loading">No data available</div>
+</div>

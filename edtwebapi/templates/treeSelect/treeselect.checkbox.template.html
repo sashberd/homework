@@ -1,0 +1,7 @@
+﻿<input type="text" class="form-control" ng-model="groupTreeQuery" placeholder="Search group..."/>
+<div class='form-group' ivh-treeview='mapCtrl.groupTreeData'  ivh-treeview-on-cb-change="mapCtrl.filterByGroups(ivhNode, ivhIsSelected, ivhTree)"  ivh-treeview-filter="groupTreeQuery">
+    <div class='gridSpinne' ng-show='mapCtrl.isGroupsLoading'></div>
+</div>
+<button type="button" class="btn btn-primary" ng-click="mapCtrl.selectAllGroups()">Select all</button>
+<button type="button" class="btn btn-primary" ng-click="mapCtrl.unselectAllGroups()">Unselect all</button>
+

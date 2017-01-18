@@ -1,0 +1,39 @@
+﻿div[ng-dropdown-multiselect] {
+    display: inline-block;
+    margin-right:50px;
+}
+
+.glyphicon-none:before {
+    content: "\e012";
+    color: transparent !important;
+}
+
+div.dropdown-multiselect > ul > li > label.multiboxOptionHeader {
+    display: inline-block;    
+    text-align: left;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight:700;
+}
+   
+.multipleHtmlOptionDiv > label {
+    display: inline-block;
+    width: 140px;
+    text-align: left;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight:400;
+}
+
+.multipleHtmlOptionDiv {
+    max-width: 300px;
+    display: inline;
+}
+
+    .multipleHtmlOptionDiv > label:not(:first-child) {
+        width: 85px;
+        text-align:end;
+    }
+.multiboxOptionHeader {
+    margin-left:50px;
+}

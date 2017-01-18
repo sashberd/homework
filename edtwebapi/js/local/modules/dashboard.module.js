@@ -1,0 +1,1 @@
+﻿angular.module('dashboard', [/*'html5.sortable'/*'ui.sortable'*/, 'obDateRangePicker', 'gridster', 'nvd3'/*'chart.js'*/  ]);

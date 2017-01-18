@@ -1,0 +1,56 @@
+﻿<div class="row mapGridFilters">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <div ng-dropdown-multiselect="" options="mapCtrl.vehiclesList" ng-style="{'width':multiselectULMinWidth}" translation-texts="mapCtrl.multiSelectCustomTexts"
+            events="mapCtrl.multiselectEvents" selected-model="mapCtrl.multiSelectModel"
+            extra-settings="mapCtrl.multiSelectSettings" checkboxes="true" headers='{ "Nickname": "NICK_NAME", "ID": "VEHICLE_BB_ID"}'>
+        </div>
+
+        <button id="btnMapGroupsFilter" uib-popover-template="'treeSelect/treeselect.checkbox.template.html'" popover-is-open="mapCtrl.popoverIsOpen" 
+            ng-click="mapCtrl.popoverIsOpen = !mapCtrl.popoverIsOpen"
+            popover-trigger="'outsideClick'"
+            popover-placement="bottom" type="button" class="btn btn-default">
+            Click to filter by groups  <span class="caret pull-right"></span>
+        </button>
+    </div>
+</div>
+<div class="row mapGridFilters form-inline">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <input type="text" class="form-control " ng-model="mapCtrl.filters.textFilter" ng-change="mapCtrl.filterByText()" placeholder="Search by free text"/>      
+            <button uib-tooltip="Clear all filters" tooltip-placement="top" id="btnFilterButton" type="button" class="btn btn-default" ng-click="mapCtrl.clearAllFilters()" 
+                ng-disabled="!mapCtrl.hasFilters" ng-class="{'btn-warning':mapCtrl.hasFilters}">
+                <span class="glyphicon" aria-hidden="true"></span>
+            </button>      
+
+          <button uib-tooltip="Apply selected vehicles on map" tooltip-placement="top" id="btnApplyOnMap" type="button" ng-click="mapCtrl.applyFiltersOnMap()" class="btn btn-default" 
+              ng-disabled="!mapCtrl.hasFilters || !mapCtrl.gridOptions.data.length>0" ng-class="{'btn-warning':mapCtrl.hasFilters && mapCtrl.gridOptions.data.length>0}" >
+                <span class="glyphicon" aria-hidden="true"></span>
+            </button>      
+    </div>
+</div>
+
+<div class="gridSpinner" ng-show="mapCtrl.isRefresh"></div>
+
+<div id="mapLegendaDiv">
+    <a href="javascript: void(0)" class="mapAlertLink hvr-underline-from-center" ng-class="{'active':mapCtrl.alertFilterSelected }" 
+        ng-click="mapCtrl.alertFilterSelected=!mapCtrl.alertFilterSelected;mapCtrl.filterByStatus(4,mapCtrl.alertFilterSelected)"></a>
+    <label>({{mapCtrl.alertCarsCount}})</label>
+    <a href="javascript: void(0)" class="mapMotionLink hvr-underline-from-center" ng-class="{'active':mapCtrl.inMotionFilterSelected }" 
+        ng-click="mapCtrl.inMotionFilterSelected=!mapCtrl.inMotionFilterSelected;mapCtrl.filterByStatus(1,mapCtrl.inMotionFilterSelected)"></a>
+    <label>({{mapCtrl.inMotionCarsCount}})</label>
+    <a href="javascript: void(0)" class="mapEngineOffLink hvr-underline-from-center" ng-class="{'active':mapCtrl.engineOffFilterSelected }" 
+        ng-click="mapCtrl.engineOffFilterSelected=!mapCtrl.engineOffFilterSelected;mapCtrl.filterByStatus(3,mapCtrl.engineOffFilterSelected)"></a>
+    <label>({{mapCtrl.engineOffCarsCount}})</label>
+    <a href="javascript: void(0)" class="mapIdleLink hvr-underline-from-center" ng-class="{'active':mapCtrl.idleFilterSelected }" 
+        ng-click="mapCtrl.idleFilterSelected=!mapCtrl.idleFilterSelected;mapCtrl.filterByStatus(2,mapCtrl.idleFilterSelected)"></a>
+    <label>({{mapCtrl.idleCarsCount}})</label>
+    <a href="javascript: void(0)" class="mapSumSign"></a>
+    <label class="mapSumLabel">({{mapCtrl.totalCarsCount}})</label>
+
+    <div id="mapCarsDataGrid" ui-grid="mapCtrl.gridOptions" ui-grid-auto-fit-columns class="grid">
+        <span us-spinner="{radius:30, width:8, length: 16,color:'black'}" spinner-on="mapCtrl.loading"></span>
+        <div class="watermark" ng-show="!mapCtrl.gridOptions.data.length && !mapCtrl.loading">No data available</div>
+    </div>
+</div>
+
+<leaflet style="float: right; display: inline-block" bounds="bounds" layers="layers" center="center" width="60%" height="950px"></leaflet>
+<!--markers="markers"-->

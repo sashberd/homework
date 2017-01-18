@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bezeq.WebAPI", "..\Bezeq.WebAPI\Bezeq.WebAPI.csproj", "{C8D5C538-3ACC-436A-BEEE-752002981A2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDT.WebAPI", "edtwebapi\EDT.WebAPI.csproj", "{B7E1D434-F57C-4E9B-BFF2-84B303C5DF42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8D5C538-3ACC-436A-BEEE-752002981A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D5C538-3ACC-436A-BEEE-752002981A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D5C538-3ACC-436A-BEEE-752002981A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D5C538-3ACC-436A-BEEE-752002981A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7E1D434-F57C-4E9B-BFF2-84B303C5DF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7E1D434-F57C-4E9B-BFF2-84B303C5DF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7E1D434-F57C-4E9B-BFF2-84B303C5DF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7E1D434-F57C-4E9B-BFF2-84B303C5DF42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
