@@ -127,8 +127,8 @@
                 timeTo: moment($scope.selectedRange.toHour, ['HH:mm']).toDate(),
                 vehicleID: $scope.multiSelectModel[0].id
             }, $widget.id);
-            debugger;
-            $dashboardParent.dashboardController.setSettingsData({
+            
+            $dashboardParent.dashboardFactory.setSettingsData({
                 selectedRange: $scope.selectedRange,
                 multiSelectModel: $scope.multiSelectModel,
                 selectedGroup: $scope.selectedGroup,
@@ -137,8 +137,8 @@
             $scope.cancel();
         }
     }
-    if (!$commonUtils.isObjectEmpty( $dashboardParent.dashboardController.getSettingsData())) {
-        var oldSettingsData = $dashboardParent.dashboardController.getSettingsData();
+    if (!$commonUtils.isObjectEmpty($dashboardParent.dashboardFactory.getSettingsData())) {
+        var oldSettingsData = $dashboardParent.dashboardFactory.getSettingsData();
         $scope.selectedRange = oldSettingsData.selectedRange;
         $scope.multiSelectModel = oldSettingsData.multiSelectModel;
         $scope.selectedGroup = oldSettingsData.selectedGroup;

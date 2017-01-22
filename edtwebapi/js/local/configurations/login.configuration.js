@@ -4,6 +4,7 @@
         controller: 'loginController',
         controllerAs: 'loginCtrl',
         templateUrl: 'login.template.html',
+        css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/select.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/login.min.css'],
         resolve: {
             $T: function ($clientData, $api, $commonUtils, localStorageService) {
                 if (!localStorageService.get('$T')) {

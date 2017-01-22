@@ -1,1 +1,1 @@
-﻿angular.module('login', ['Tek.progressBar']);
+﻿angular.module('login', ['Tek.progressBar', 'ui.select']);

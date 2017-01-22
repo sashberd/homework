@@ -2,12 +2,94 @@ angular.module('app').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('dashboard.template.html',
-    "<uib-accordion><div uib-accordion-group class=\"panel-default\" is-open=\"dashboardCtrl.isCustomHeaderOpen\"><uib-accordion-heading>{{ dashboardCtrl.isCustomHeaderOpen ? 'Hide widget panel' : 'Show widget panel'}} <i class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': dashboardCtrl.isCustomHeaderOpen, 'glyphicon-chevron-right': !dashboardCtrl.isCustomHeaderOpen}\"></i></uib-accordion-heading><button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}\" ng-click=\"dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');\">First Button</button><!--IDLE TIME-CURRENT STATUS--> <button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}\" ng-click=\"dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');\">Second Button</button><!--Irrigation Motor status--></div></uib-accordion><div class=\"container-fluid\"><div class=\"col-md-12\"><!--<div dashboard=\"dashboardCtrl.dashboardOptions\" class=\"dashboard-container\"></div>--><div gridster=\"dashboardCtrl.gridsterOptions\"><ul><li gridster-item=\"widget\" ng-repeat=\"widget in dashboardCtrl.widgets\"><div class=\"box\"><div class=\"box-header\"><h3>{{ widget.name }}</h3><div class=\"box-header-btns pull-right\"><a title=\"settings\" ng-click=\"dashboardCtrl.openSettings(widget)\"><i class=\"glyphicon glyphicon-cog\"></i></a> <a title=\"Remove widget\" ng-click=\"dashboardCtrl.remove(widget)\"><i class=\"glyphicon glyphicon-trash\"></i></a></div></div><div class=\"box-content\" ng-include=\"widget.template\"></div></div></li></ul></div></div></div>"
+    "<uib-accordion><div uib-accordion-group class=\"panel-default\" is-open=\"dashboardCtrl.isCustomHeaderOpen\"><uib-accordion-heading>{{ dashboardCtrl.isCustomHeaderOpen ? 'Hide widget panel' : 'Show widget panel'}} <i class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': dashboardCtrl.isCustomHeaderOpen, 'glyphicon-chevron-right': !dashboardCtrl.isCustomHeaderOpen}\"></i></uib-accordion-heading><button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}\" ng-click=\"dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');\">First Button</button><!--IDLE TIME-CURRENT STATUS--> <button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}\" ng-click=\"dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');\">Second Button</button><!--Irrigation Motor status--></div></uib-accordion><div class=\"container-fluid\"><div class=\"col-md-12\"><!--<div dashboard=\"dashboardCtrl.dashboardOptions\" class=\"dashboard-container\"></div>--><div gridster=\"dashboardCtrl.gridsterOptions\"><ul><li gridster-item=\"widget\" ng-repeat=\"widget in dashboardCtrl.widgets\"><div class=\"box\"><div class=\"box-header\"><h3>{{ widget.name }}</h3><div class=\"box-header-btns pull-right\"><a title=\"settings\" ng-click=\"dashboardCtrl.openWidgetSettings(widget)\"><i class=\"glyphicon glyphicon-cog\"></i></a> <a title=\"Remove widget\" ng-click=\"dashboardCtrl.removeWidget(widget)\"><i class=\"glyphicon glyphicon-trash\"></i></a></div></div><div class=\"box-content\" ng-include=\"widget.template\"></div></div></li></ul></div></div></div>"
   );
 
 
   $templateCache.put('login.template.html',
-    "<!-- Where all the magic happens --><!-- LOGIN FORM --><div class=\"text-center\" style=\"padding: 50px 0\" on-key-enter=\"loginCtrl.doLogin()\"><div class=\"logo\">login</div><!-- Main Form --><div class=\"login-form-1\"><form id=\"login-form\" class=\"text-left\"><div class=\"login-form-main-message\"></div><div class=\"main-login-form\"><div class=\"login-group\"><div class=\"form-group\"><label for=\"lg_username\" class=\"sr-only\">Username</label><input type=\"text\" class=\"form-control\" id=\"lg_username\" name=\"lg_username\" placeholder=\"username\" ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\"></div><div class=\"form-group\"><label for=\"lg_password\" class=\"sr-only\">Password</label><input type=\"password\" class=\"form-control\" id=\"lg_password\" name=\"lg_password\" placeholder=\"password\" ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\"></div><div class=\"form-group\"><label for=\"txtCompany\" class=\"sr-only\">Company Name</label><input type=\"text\" class=\"form-control\" id=\"txtCompany\" name=\"lg_company\" placeholder=\"company name\" ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\"></div><div class=\"form-group login-group-checkbox\"><input type=\"checkbox\" id=\"lg_remember\" name=\"lg_remember\"><label for=\"lg_remember\">remember</label></div></div><button type=\"button\" class=\"login-button\" ng-click=\"loginCtrl.doLogin()\"><i class=\"glyphicon glyphicon-chevron-right\"></i></button></div><div class=\"etc-login-form\"><p>forgot your password? <a href=\"#\">click here</a></p></div><div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{loginCtrl.loginMessage}}</div></form><tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar></div><!-- end:Main Form --></div>"
+    "<!-- Where all the magic happens --><!-- LOGIN FORM --><!--<div class=\"text-center\" style=\"padding: 50px 0\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
+    "\n" +
+    "    <div class=\"logo\">{{ 'login' | translate }}</div>\r" +
+    "\n" +
+    "  \r" +
+    "\n" +
+    "    <div class=\"login-form-1\">\r" +
+    "\n" +
+    "        <form id=\"login-form\" class=\"text-left\">\r" +
+    "\n" +
+    "            <div class=\"login-form-main-message\"></div>\r" +
+    "\n" +
+    "            <div class=\"main-login-form\">\r" +
+    "\n" +
+    "                <div class=\"login-group\">\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"lg_username\" class=\"sr-only\">{{ 'username' | translate }}</label>\r" +
+    "\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"lg_username\" name=\"lg_username\" placeholder=\"{{ 'username' | translate }}\" ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"lg_password\" class=\"sr-only\">{{ 'password' | translate }}</label>\r" +
+    "\n" +
+    "                        <input type=\"password\" class=\"form-control\" id=\"lg_password\" name=\"lg_password\" placeholder=\"{{ 'password' | translate }}\" ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group\">\r" +
+    "\n" +
+    "                        <label for=\"txtCompany\" class=\"sr-only\">{{ 'companyName' | translate }}</label>\r" +
+    "\n" +
+    "                        <input type=\"text\" class=\"form-control\" id=\"txtCompany\" name=\"lg_company\" placeholder=\"{{ 'companyName' | translate }}\" ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"form-group login-group-checkbox\">\r" +
+    "\n" +
+    "                        <input type=\"checkbox\" id=\"lg_remember\" name=\"lg_remember\">\r" +
+    "\n" +
+    "                        <label for=\"lg_remember\">{{ 'rememberMe' | translate }}</label>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <button type=\"button\" class=\"login-button\" ng-click=\"loginCtrl.doLogin()\"><i class=\"glyphicon glyphicon-chevron-right\"></i></button>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"etc-login-form\">\r" +
+    "\n" +
+    "                <p>{{ 'forgotPassword' | translate }} <a href=\"#\">{{ 'clickHere' | translate }}</a></p>             \r" +
+    "\n" +
+    "                <ui-select ng-model=\"   \"  style=\"min-width: 100px;\" theme=\"bootstrap\" search-enabled=\"false\" on-select=\"loginCtrl.onLanguageChange()\"> \n" +
+    "                      <ui-select-match placeholder=\"{{'chooseLanguage'|translate}}\"><img style=\"padding-left:5px;vertical-align: super;\" ng-src=\"{{ $select.selected.url }}\" />&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match>                  \n" +
+    "                    <ui-select-choices repeat=\"lang in loginCtrl.languageList\">\n" +
+    "                      <img ng-src=\"{{ lang.url }}\" />&nbsp;&nbsp;\n" +
+    "                      <div ng-bind-html=\"lang.name | highlight: $select.search\" style=\"display: inline\"></div>\n" +
+    "                    </ui-select-choices>\n" +
+    "            </ui-select>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{ loginCtrl.loginMessage | translate}}  </div>\r" +
+    "\n" +
+    "        </form>\r" +
+    "\n" +
+    "        <tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    \r" +
+    "\n" +
+    "</div>--><div class=\"container\"><form class=\"form-signin\" on-key-enter=\"loginCtrl.doLogin()\"><h2 class=\"form-signin-heading\">{{ 'login' | translate }}</h2><label for=\"inputEmail\" class=\"sr-only\">{{ 'username' | translate }}</label><input type=\"text\" id=\"inputEmail\" class=\"form-control\" placeholder=\"{{ 'username' | translate }}\" required autofocus ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputPassword\" class=\"sr-only\">{{ 'password' | translate }}</label><input type=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"{{ 'password' | translate }}\" required ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputCompanyName\" class=\"sr-only\">{{ 'companyName' | translate }}</label><input type=\"text\" id=\"txtCompanyName\" class=\"form-control\" placeholder=\"{{ 'companyName' | translate }}\" required ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\"><div class=\"checkbox\"><label><input type=\"checkbox\" value=\"remeber me\"> {{ 'rememberMe' | translate }}</label></div><button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" ng-click=\"loginCtrl.doLogin()\">{{ 'login' | translate }}</button><p>{{ 'forgotPassword' | translate }} <a href=\"#\">{{ 'clickHere' | translate }}</a></p><ui-select ng-model=\"  loginCtrl.selectedLanguage \" style=\"min-width: 100px\" theme=\"bootstrap\" search-enabled=\"false\" on-select=\"loginCtrl.onLanguageChange()\"><ui-select-match placeholder=\"{{'chooseLanguage'|translate}}\"><img style=\"padding-left:5px;vertical-align: super\" ng-src=\"{{ $select.selected.url }}\">&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match><ui-select-choices repeat=\"lang in loginCtrl.languageList\"><img ng-src=\"{{ lang.url }}\">&nbsp;&nbsp;<div ng-bind-html=\"lang.name | highlight: $select.search\" style=\"display: inline\"></div></ui-select-choices></ui-select><div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{ loginCtrl.loginMessage | translate}}</div></form><tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar></div>"
   );
 
 

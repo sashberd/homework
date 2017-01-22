@@ -1,0 +1,10 @@
+{
+    "login": "Вход",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "companyName": "Компания",
+    "rememberMe": "Запомнить меня",
+    "forgotPassword": "Забыли пароль?",
+    "clickHere": "Нажми сюда",
+    "chooseLanguage": "Выбор языка"
+}
