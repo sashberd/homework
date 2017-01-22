@@ -61,7 +61,7 @@
             var markers = $mapData.map(function (item) {
                 return L.marker([item.VEHICLE_LATITUDE, item.VEHICLE_LONGITUDE], {
                     icon: L.icon({
-                        iconUrl: 'js/dist/images/' + item.VEHICLE_TYPE_IMAGE_FILENAME.toLowerCase().replace(/\d+/, ''),
+                        iconUrl: 'js/dist/css/images/' + item.VEHICLE_TYPE_IMAGE_FILENAME.toLowerCase().replace(/\d+/, ''),
                         iconSize: [32, 32],
                         //iconAnchor: [22, 94],
                         //popupAnchor: [-3, -76],

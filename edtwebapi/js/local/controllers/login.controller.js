@@ -1,4 +1,4 @@
-﻿app.controller('loginController', function ($api, $state, progressBarManager, $T, localStorageService, $clientData, $security, $timeout) {
+﻿app.controller('loginController', function ($api, $state, progressBarManager, $T, localStorageService, $clientData, $security, $timeout,$translate) {
     var $this = this;
     this.showProgressBar = false;
     this.progressBarValue = 0;
@@ -35,26 +35,33 @@
                     }
                     else {
                         $this.showAlert = true;
-                        $this.loginMessage = 'Login failed. Check you credentials!';
+                        $this.loginMessage = 'invalidCredential'//'Login failed. Check you credentials!';
                         $this.progressBarValue = 0;
                         $this.showProgressBar = false;
                     }
                 }),
                 function (data) {
                     $this.showAlert = true;
-                    $this.loginMessage = 'Connection to server failed. Please contact administrator';
+                    $this.loginMessage = 'loginServerError'//'Connection to server failed. Please contact administrator';
                     $this.progressBarValue = 0;
                     $this.showProgressBar = false;
 
                 });
         } else {
             $this.showAlert = true;
-            $this.loginMessage = 'Please fill all login fields';
+            $this.loginMessage = 'loginFields';//'Please fill all login fields';
             $this.progressBarValue = 0;
             $this.showProgressBar = false;
         }
     };
-   
+    this.languageList = [{ alias: 'en', name: 'English', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png' },
+        { alias: 'he', name: 'עברית', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/il.png' },
+        { alias: 'ru', name: 'Русский', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ru.png' }]
 
+    this.selectedLanguage = this.languageList[0];
+    this.onLanguageChange = function () {   
+
+        $translate.use(this.selectedLanguage.alias);
+    }
 
 });

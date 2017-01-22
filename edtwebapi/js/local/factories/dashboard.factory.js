@@ -1,15 +1,34 @@
-﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService) {
+﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService,$uibModal) {
     var widgets = [];
     var settingsData = {};
     return {
+        /**
+         * Getter for widget
+         * @returns {Object} 
+         */
         getWidgets: function () {
             return widgets;
         },
+        /**
+         * Getter and setter for settings data
+         * @returns {Object} 
+         */
         getSettingsData: function () { return settingsData },
         setSettingsData: function (_settingsData) { settingsData = _settingsData },
+        /**************************************/
+        /**
+         * Calling api of idle status
+         * @returns {Promise} 
+         */
         getIdleTimeCurrentStatus: function () {
             return $api.sendAPIRequest('Dashboard', 'GetIdleTimeCurrentStatus', angular.extend(localStorageService.get('$T'), {}/*this.getSelectedFilters*/));
         },
+        /**
+         * 
+         * @param key string for create object with this key
+         * @param totla seconds from server api
+         * @returns {Object} 
+         */
         genereteIdleStatusObject: function (key, seconds) {
             if (key.toLowerCase().indexOf('now') > -1) {
                 key = 'now'
@@ -31,6 +50,12 @@
             }
             return obj;
         },
+        /**
+         * Custom generate tooltip for charts and graths
+         * @param Data of current point
+         * @param current Chart Options
+         * @returns {HTML string} 
+         */
         generateTooltipHTML: function (d, currentChartOptions) {
             if (d === null) {
                 return '';
@@ -76,7 +101,7 @@
                     var formatFunction = p.formatFunction || currentChartOptions.yTickFormat;
                     var extraString = '';
                     if (p.data && p.data.extraValue) {
-                        extraString = ', ' + p.data.extraValue + ' '+currentChartOptions.extraValueUnit;
+                        extraString = ', ' + p.data.extraValue + ' ' + currentChartOptions.extraValueUnit;
                     }
                     return formatFunction(p.value, i) + extraString;
                 });
@@ -102,11 +127,20 @@
             return html;
 
         },
+        /**
+         * Get widget option bu curremt id. Used in html ng-repeat of irrigation motor template
+         * @param currentData
+         */
         getWidgetOption: function (currentData) {
             return function (currentOption) {
                 return currentOption.chart.chartId === currentData.chartId;
             }
         },
+        /**
+         * Generate chart option from provided chart data
+         * @param currentChartOptions
+         * @returns {Object} 
+         */
         generateChartOptions: function (currentChartOptions) {
             var $this = this;
             return {
@@ -182,9 +216,16 @@
             };
 
         },
+        /**
+         * Creates chart objects for specific widget from api response data
+         * @param widgetId
+         * @param responseData
+         * @returns {type} 
+         */
         createCharts: function (widgetId, responseData) {
             //TODO CRETAE BASE OBJECT AND DO OBJECT.ASSIGHN
-            return {
+
+            var charts = {
                 odometerData: {
                     widgetId: widgetId,
                     chartId: $commonUtils.generateQuickGuid(),
@@ -244,7 +285,7 @@
                         }
                         return result
                     },
-                    yTickFormat: function (d) { return d.toFixed(2);  },
+                    yTickFormat: function (d) { return d.toFixed(2); },
                     tooltipKeyFormat: function (d, i) { return d; },
                     yRange: [0, ]
                 },
@@ -275,7 +316,7 @@
                         }
                         return result
                     },
-                    yTickFormat: function (d) { return d + responseData.VolumeUnit.substring(0,1); },
+                    yTickFormat: function (d) { return d + responseData.VolumeUnit.substring(0, 1); },
                     tooltipKeyFormat: function (d, i) { return d; },
                 },
                 psiData: {
@@ -377,12 +418,163 @@
                     tooltipKeyFormat: function (d, i) { return d }
                 }
             }
+
+            responseData.IrrigationMotorData.forEach(function (item, index) {
+
+                var eventDate = moment(item.DATE_TIME);
+                if (!$commonUtils.checkIfDefined(item.RPM, true)) {
+                    charts.rmpData.values.push({ date: eventDate, value: item.RPM })
+                }
+                if (!$commonUtils.checkIfDefined(item.FUEL_LEVEL_PCT)) {
+                    charts.fuelData.values.push({
+                        date: eventDate, value: item.FUEL_LEVEL_PCT, extraValue: item.FUEL_LEVEL_QTY
+                    });
+                }
+                if (!$commonUtils.checkIfDefined(item.WATER_FLOW_L_PER_MIN)) {
+                    charts.waterData.values.push({ date: eventDate, value: item.WATER_FLOW_L_PER_MIN });
+                }
+                if (!$commonUtils.checkIfDefined(item.PSI)) {
+                    charts.psiData.values.push({ date: eventDate, value: item.PSI });
+                }
+                if (!$commonUtils.checkIfDefined(item.ENGINE_HOURS)) {
+                    charts.engineHoursData.values.push({ date: eventDate, value: item.ENGINE_HOURS });
+                }
+
+                if (!$commonUtils.checkIfDefined(item.VOM_CURRENT_ODOMETER, true)) {
+                    charts.odometerData.values.push({ date: eventDate, value: item.VOM_CURRENT_ODOMETER });
+                }
+
+            });
+            return charts;
         },
+        /**
+         * Empty current widget on referesh or other actions
+         * @param widget
+         * @returns {type} 
+         */
         emptyWidget: function (widget) {
             widget.widgetData = [];
             widget.widgetOptions = [];
             widget.widgetApi = [];
             return widget;
+        },
+        /**
+         * Create idle time widget
+         */
+        createIdleTimeWidget: function () {
+            var $this = this
+            this.dashboardFactory.getIdleTimeCurrentStatus().then(function (response) {
+                var widgetObj = {
+                    id: $commonUtils.generateQuickGuid(),
+                    name: 'Idle time - current status',
+                    sizeY: 1,
+                    sizeX: 2,
+                    template: 'widgets/clock/clock.template.html',
+                    settingsTemplate: 'modal/commonSettings.template.html',
+                    widgetData: {}
+                };
+
+                Object.keys(response.data).forEach(function (item) {
+                    var obj = $this.dashboardFactory.genereteIdleStatusObject(item, response.data[item]);
+                    Object.defineProperty(widgetObj.widgetData, Object.keys(obj)[0], {
+                        value: obj[Object.keys(obj)[0]],
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    });
+
+                });
+
+                $this.widgets.push(widgetObj);
+            });
+        },
+        /**
+         * Creates irrigation motor widget and push it ro widgets
+         */
+        createIrrigationMotorWidget: function () {
+            this.widgets.push({
+                id: $commonUtils.generateQuickGuid(),
+                name: 'Irrigation motor',
+                sizeY: 1,
+                sizeX: 3,
+                template: 'widgets/common.widget.template.html',//TODO to template
+                settingsTemplate: 'widgets/dygraph/dygraph.irrigationMotor.settings.widget.template.html',
+                widgetData: [],
+                widgetOptions: [],
+                widgetApi: [],
+                controllerName: 'irrigationMotor.widget.settings.controller',
+                controllerAsAlias: 'irrigationMotorWidgetSettingsCtrl',
+                //onReadyCallback: function (scope, element) {
+                //    setTimeout(function () {
+                //        if (scope.data[0].extraValueUnit) {
+                //            var currentLable = scope.chart.yAxis._axisLabel();
+                //            scope.chart.yAxis.axisLabel(currentLable + ' (' + scope.data[0].extraValueUnit + ')');
+                //        }
+
+                //    }, 0);
+                //},
+
+            });
+        },
+        /**
+         * Remove widget button callback
+         * @param widget
+         */
+        removeWidget: function (widget) {
+            this.widgets.splice(this.widgets.indexOf(widget), 1);
+        },
+        /**
+         * OPen widget button callback
+         * @param widget
+         */
+        openWidgetSettings: function (widget) {
+            var $this = this;
+            $uibModal.open({
+                templateUrl: widget.settingsTemplate,
+                controllerAs: widget.controllerAsAlias,
+                bindToController: true,
+                controller: widget.controllerName,
+                resolve: {
+                    $widget: function () {
+                        return widget;
+                    },
+                    $dashboardParent: function () { return $this; }
+                }
+            });
+        },
+        /**
+         * Get irrigation motor widget data from api by user selected filter
+         * @param filterObject
+         * @param widgetId
+         */
+        getIrrigationMotorData: function (filterObject, widgetId) {
+            var $this = this;
+            $api.sendAPIRequest('Dashboard', 'GetIrrigationMotorData', angular.extend(localStorageService.get('$T'), filterObject)).then(function (response) {
+                var widget = $this.widgets.find(function (item) { return item.id === widgetId });
+                $this.dashboardFactory.emptyWidget(widget);
+                var chartData = Object.values($this.dashboardFactory.createCharts(widgetId, response.data))
+                if (chartData.some(function (item) { return item.values.length })) {
+                    chartData.forEach(function (item, index, array) {
+                        if (item.values.length) {
+                            widget.widgetOptions.push($this.dashboardFactory.generateChartOptions(item));
+                            widget.widgetData.push([item]);
+                            widget.widgetApi.push({});
+                        }
+                    });
+                }
+                else {
+                    widget.widgetOptions.push($this.dashboardFactory.generateChartOptions(chartData[0]));
+                    widget.widgetData.push([chartData[0]]);
+                    widget.widgetApi.push({});
+                }
+
+                widget.template = 'widgets/dygraph/dygraph.irrigationMotor.widget.template.html';
+                widget.sizeY = widget.widgetData.length;
+
+                $this.showEmptySettingsMessage = true;
+                $this.showSpinner = false;
+            });
         }
+
     }
 });

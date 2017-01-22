@@ -8,7 +8,10 @@
             $mapData: function ($vehiclesList, $mapFactory) {
                 return $mapFactory.getMapData($vehiclesList);               
             }
-        }
+        },
+        css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/ui-grid.min.css',
+           'js/dist/css/hover-min.min.css', 'js/dist/css/leaflet.min.css', 'js/dist/css/MarkerCluster.min.css',
+           'js/dist/css/multiselect.min.css',  'js/dist/css/treeselect.min.css', 'js/dist/css/map.min.css'],
         
     });
     $urlMatcherFactoryProvider.caseInsensitive(true);

@@ -1,1 +1,10 @@
-{}
+{
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "companyName": "Company Name",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot your password?",
+    "clickHere": "Click Here",
+    "chooseLanguage": ""
+}

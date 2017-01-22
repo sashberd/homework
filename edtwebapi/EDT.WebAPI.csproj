@@ -229,29 +229,25 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="js\dist\app.js" />
-    <Content Include="js\dist\images\ambulance.png" />
-    <Content Include="js\dist\images\boat.png" />
-    <Content Include="js\dist\images\bulldozer.png" />
-    <Content Include="js\dist\images\car.png" />
-    <Content Include="js\dist\images\car_alert.png" />
-    <Content Include="js\dist\images\car_engine_off.png" />
-    <Content Include="js\dist\images\car_idle.png" />
-    <Content Include="js\dist\images\car_in_motion.png" />
-    <Content Include="js\dist\images\earth.png" />
-    <Content Include="js\dist\images\filter_delete.png" />
-    <Content Include="js\dist\images\grid_loading.gif" />
-    <Content Include="js\dist\images\group-close.png" />
-    <Content Include="js\dist\images\group_open.png" />
-    <Content Include="js\dist\images\layers-2x.png" />
-    <Content Include="js\dist\images\layers.png" />
-    <Content Include="js\dist\images\marker-icon-2x.png" />
-    <Content Include="js\dist\images\marker-icon.png" />
-    <Content Include="js\dist\images\marker-shadow.png" />
-    <Content Include="js\dist\images\sum_sign.png" />
-    <Content Include="js\dist\images\tanker.png" />
+    <Content Include="js\dist\css\angular-gridster.min.css" />
+    <Content Include="js\dist\css\bootstrap.min.css" />
+    <Content Include="js\dist\css\clock.min.css" />
+    <Content Include="js\dist\css\dashboard.min.css" />
+    <Content Include="js\dist\css\hover-min.min.css" />
+    <Content Include="js\dist\css\leaflet.min.css" />
+    <Content Include="js\dist\css\login.min.css" />
+    <Content Include="js\dist\css\map.min.css" />
+    <Content Include="js\dist\css\MarkerCluster.min.css" />
+    <Content Include="js\dist\css\multiselect.min.css" />
+    <Content Include="js\dist\css\navigation.min.css" />
+    <Content Include="js\dist\css\nv.d3.min.css" />
+    <Content Include="js\dist\css\ob-daterangepicker.min.css" />
+    <Content Include="js\dist\css\refuels.min.css" />
+    <Content Include="js\dist\css\select.min.css" />
+    <Content Include="js\dist\css\treeselect.min.css" />
+    <Content Include="js\dist\css\ui-grid.min.css" />
+    <Content Include="js\dist\css\ui-grid.svg" />
     <Content Include="js\dist\remotes.js" />
-    <Content Include="js\dist\style.css" />
-    <Content Include="js\dist\ui-grid.svg" />
     <Content Include="js\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="js\grunt\Gruntfile.js" />
     <Content Include="js\local\app.js" />
@@ -292,7 +288,6 @@
     <Content Include="js\minified\hmac-sha256.js" />
     <Content Include="js\minified\zenc-base64-min.js" />
     <Content Include="js\semi\angular-treeview.js" />
-    <Content Include="js\semi\angular.html5Sortable.js" />
     <Content Include="js\semi\angularjs-dropdown-multiselect.js" />
     <Content Include="js\semi\autoFitColumns.js" />
     <Content Include="js\semi\dateDiff.js" />
@@ -314,6 +309,7 @@
     <Content Include="js\static_images\grid_loading.gif" />
     <Content Include="js\static_images\group-close.png" />
     <Content Include="js\static_images\group_open.png" />
+    <Content Include="js\static_images\menu-normal.png" />
     <Content Include="js\static_images\sum_sign.png" />
     <Content Include="js\static_images\tanker.png" />
     <Content Include="templates\dashboard.template.html" />
@@ -350,14 +346,19 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="js\dist\ui-grid.eot" />
-    <Content Include="js\dist\ui-grid.ttf" />
-    <Content Include="js\dist\ui-grid.woff" />
     <Content Include="js\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="js\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="js\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="js\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="js\grunt\package.json" />
+    <Content Include="js\i18n\en.json" />
+    <Content Include="js\i18n\he.json" />
+    <Content Include="js\dist\css\ui-grid.eot" />
+    <Content Include="js\dist\css\ui-grid.ttf" />
+    <Content Include="js\dist\css\ui-grid.woff" />
+    <Content Include="js\dist\languages\en.json" />
+    <Content Include="js\dist\languages\he.json" />
+    <Content Include="js\dist\languages\ru.json" />
     <None Include="Properties\PublishProfiles\localTest.pubxml" />
   </ItemGroup>
   <PropertyGroup>

@@ -1,28 +1,28 @@
 ﻿<!-- Where all the magic happens -->
 <!-- LOGIN FORM -->
-<div class="text-center" style="padding: 50px 0" on-key-enter="loginCtrl.doLogin()">
-    <div class="logo">login</div>
-    <!-- Main Form -->
+<!--<div class="text-center" style="padding: 50px 0" on-key-enter="loginCtrl.doLogin()">
+    <div class="logo">{{ 'login' | translate }}</div>
+  
     <div class="login-form-1">
         <form id="login-form" class="text-left">
             <div class="login-form-main-message"></div>
             <div class="main-login-form">
                 <div class="login-group">
                     <div class="form-group">
-                        <label for="lg_username" class="sr-only">Username</label>
-                        <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="username" ng-model="loginCtrl.username" on-key-enter="loginCtrl.doLogin()">
+                        <label for="lg_username" class="sr-only">{{ 'username' | translate }}</label>
+                        <input type="text" class="form-control" id="lg_username" name="lg_username" placeholder="{{ 'username' | translate }}" ng-model="loginCtrl.username" on-key-enter="loginCtrl.doLogin()">
                     </div>
                     <div class="form-group">
-                        <label for="lg_password" class="sr-only">Password</label>
-                        <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="password" ng-model="loginCtrl.password" on-key-enter="loginCtrl.doLogin()">
+                        <label for="lg_password" class="sr-only">{{ 'password' | translate }}</label>
+                        <input type="password" class="form-control" id="lg_password" name="lg_password" placeholder="{{ 'password' | translate }}" ng-model="loginCtrl.password" on-key-enter="loginCtrl.doLogin()">
                     </div>
                     <div class="form-group">
-                        <label for="txtCompany" class="sr-only">Company Name</label>
-                        <input type="text" class="form-control" id="txtCompany" name="lg_company" placeholder="company name" ng-model="loginCtrl.companyName" on-key-enter="loginCtrl.doLogin()">
+                        <label for="txtCompany" class="sr-only">{{ 'companyName' | translate }}</label>
+                        <input type="text" class="form-control" id="txtCompany" name="lg_company" placeholder="{{ 'companyName' | translate }}" ng-model="loginCtrl.companyName" on-key-enter="loginCtrl.doLogin()">
                     </div>
                     <div class="form-group login-group-checkbox">
                         <input type="checkbox" id="lg_remember" name="lg_remember">
-                        <label for="lg_remember">remember</label>
+                        <label for="lg_remember">{{ 'rememberMe' | translate }}</label>
                     </div>
                 </div>
                 <button type="button" class="login-button" ng-click="loginCtrl.doLogin()"><i class="glyphicon glyphicon-chevron-right"></i></button>
@@ -30,11 +30,48 @@
             </div>
 
             <div class="etc-login-form">
-                <p>forgot your password? <a href="#">click here</a></p>
+                <p>{{ 'forgotPassword' | translate }} <a href="#">{{ 'clickHere' | translate }}</a></p>             
+                <ui-select ng-model="   "  style="min-width: 100px;" theme="bootstrap" search-enabled="false" on-select="loginCtrl.onLanguageChange()"> 
+                      <ui-select-match placeholder="{{'chooseLanguage'|translate}}"><img style="padding-left:5px;vertical-align: super;" ng-src="{{ $select.selected.url }}" />&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match>                  
+                    <ui-select-choices repeat="lang in loginCtrl.languageList">
+                      <img ng-src="{{ lang.url }}" />&nbsp;&nbsp;
+                      <div ng-bind-html="lang.name | highlight: $select.search" style="display: inline"></div>
+                    </ui-select-choices>
+            </ui-select>
             </div>
-            <div uib-alert ng-class="'alert-danger'" ng-show="loginCtrl.showAlert">{{loginCtrl.loginMessage}}</div>
+            <div uib-alert ng-class="'alert-danger'" ng-show="loginCtrl.showAlert">{{ loginCtrl.loginMessage | translate}}  </div>
         </form>
         <tek-progress-bar bar-class="progress-bar-info" ng-show="loginCtrl.showProgressBar" ng-model="loginCtrl.progressBarValue" manager="loginCtrl.progressManager">{{loginCtrl.progressBarValue}}%</tek-progress-bar>
     </div>
-    <!-- end:Main Form -->
+    
+</div>-->
+<div class="container">
+    <form class="form-signin" on-key-enter="loginCtrl.doLogin()">
+        <h2 class="form-signin-heading">{{ 'login' | translate }}</h2>
+        <label for="inputEmail" class="sr-only">{{ 'username' | translate }}</label>
+        <input type="text" id="inputEmail" class="form-control" placeholder="{{ 'username' | translate }}" required autofocus ng-model="loginCtrl.username" on-key-enter="loginCtrl.doLogin()">
+        <label for="inputPassword" class="sr-only">{{ 'password' | translate }}</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="{{ 'password' | translate }}" required ng-model="loginCtrl.password" on-key-enter="loginCtrl.doLogin()">
+        <label for="inputCompanyName" class="sr-only">{{ 'companyName' | translate }}</label>
+        <input type="text" id="txtCompanyName" class="form-control" placeholder="{{ 'companyName' | translate }}" required ng-model="loginCtrl.companyName" on-key-enter="loginCtrl.doLogin()">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remeber me">
+                {{ 'rememberMe' | translate }}
+              
+         
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="loginCtrl.doLogin()">{{ 'login' | translate }}</button>
+        <p>{{ 'forgotPassword' | translate }} <a href="#">{{ 'clickHere' | translate }}</a></p>
+        <ui-select ng-model="  loginCtrl.selectedLanguage " style="min-width: 100px;" theme="bootstrap" search-enabled="false" on-select="loginCtrl.onLanguageChange()"> 
+                      <ui-select-match placeholder="{{'chooseLanguage'|translate}}"><img style="padding-left:5px;vertical-align: super;" ng-src="{{ $select.selected.url }}" />&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match>                  
+                    <ui-select-choices repeat="lang in loginCtrl.languageList">
+                      <img ng-src="{{ lang.url }}" />&nbsp;&nbsp;
+                      <div ng-bind-html="lang.name | highlight: $select.search" style="display: inline"></div>
+                    </ui-select-choices>
+            </ui-select>
+        <div uib-alert ng-class="'alert-danger'" ng-show="loginCtrl.showAlert">{{ loginCtrl.loginMessage | translate}}  </div>
+    </form>
+    <tek-progress-bar bar-class="progress-bar-info" ng-show="loginCtrl.showProgressBar" ng-model="loginCtrl.progressBarValue" manager="loginCtrl.progressManager">{{loginCtrl.progressBarValue}}%</tek-progress-bar>
 </div>

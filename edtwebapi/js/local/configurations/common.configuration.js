@@ -1,4 +1,4 @@
-﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider/*, IdleProvider*/) {
+﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider/*, IdleProvider*/, $translateProvider, $cssProvider) {
     $httpProvider.interceptors.push('interceptors');
     localStorageServiceProvider
   .setPrefix('EDT')
@@ -20,7 +20,17 @@
             twistieLeafTpl: '<span style="color:#00FF00;" class="twistie glyphicon glyphicon-leaf"></span>'
             //nodeTpl: '...'
         });
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'js/dist/languages/',
+            suffix: '.json'
+        });
+        $translateProvider.preferredLanguage('en');
+        $translateProvider.forceAsyncReload(true);
 
+        angular.extend($cssProvider.defaults, {            
+            preload: true,
+            bustCache: true
+        });
     //IdleProvider.idle(1080);/*18 minutes*/
     //IdleProvider.interrupt('keydown DOMMouseScroll mousewheel mousedown touchstart touchmove scroll click')
     //IdleProvider.timeout(120);/*18 minutes+120 seconds*/
