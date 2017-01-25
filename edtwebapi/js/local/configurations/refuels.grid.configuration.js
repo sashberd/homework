@@ -20,7 +20,8 @@
             $fuelSupplierResolve: function ($api, $refuelsGridFactory) {
                 return $api.sendAPIRequest('Refuels', 'GetUserFuelSuppliers').then($refuelsGridFactory.getResolveSuccessFunction());
             }
-        }
+        },
+        css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/ui-grid.min.css', 'js/dist/css/refuels.min.css'], 
     })
     $urlMatcherFactoryProvider.caseInsensitive(true);
     //$locationProvider.html5Mode(true);

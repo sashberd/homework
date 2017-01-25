@@ -9,17 +9,57 @@
     <script src="js/dist/remotes.js"></script>
     <script src="js/dist/app.js"></script>
     <!--<link href="js/dist/style.css" rel="stylesheet" />-->
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="//maps.googleapis.com/maps/api/js?libraries=geometry,places,adsense,panoramio,places,drawing&v=2&key=&language=en&sensor=false"></script>
-   
 
- <!--<link rel="stylesheet" href="http://lipis.github.io/flag-icon-css/css/flag-icon.min.css">-->
- 
+
+    <!--<link rel="stylesheet" href="http://lipis.github.io/flag-icon-css/css/flag-icon.min.css">-->
+
+    <style>
+        lateral-slide-menu {
+            display: none;
+        }
+
+        [ng\:cloak],
+        [ng-cloak],
+        [data-ng-cloak],
+        [x-ng-cloak],
+        .ng-cloak,
+        .x-ng-cloak {
+            display: none !important;
+        }
+
+        .fade-ng-cloak {
+            opacity: 1;
+            -ms-filter: none;
+            -webkit-filter: none;
+            filter: none;
+            -webkit-transition: opacity 0.5s;
+            transition: opacity 0.5s;
+        }
+
+            .fade-ng-cloak[ng-cloak] {
+                display: block !important;
+                opacity: 0;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+                filter: alpha(opacity=0);
+            }
+
+            .fade-ng-cloak.ng-cloak,
+            .fade-ng-cloak.ng-binding {
+                opacity: 0;
+                transition: opacity 800ms ease-in-out;
+            }
+
+            .fade-ng-cloak.ng-binding {
+                opacity: 1;
+            }
+    </style>
 </head>
 
 <body lateral-slide-menu-controller>
-    
-        <lateral-slide-menu>
+
+    <lateral-slide-menu>
               
             <ul>
               <li><a  ui-sref="abstract.dashboard"  ui-sref-active="selected">Dashboard</a></li>
@@ -28,12 +68,12 @@
             </ul>
           
           </lateral-slide-menu>
-   
+
     <div class="lateral-slide-menu-main-page">
         <a href="" class="toggle-menu" lateral-slide-menu-toggle navbar-visibility></a>
     </div>
     <span us-spinner="{radius:30, width:8, length: 16,color:'black'}" spinner-on="globalSpinner"></span>
-    <ui-view>
+    <ui-view ng-cloak class="ng-cloak fade-ng-cloak">
 
       
     </ui-view>

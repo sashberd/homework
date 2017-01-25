@@ -14,5 +14,13 @@
         getGroupsData: function () {
             return $api.sendAPIRequest('Map', 'GetUserGroupsData', localStorageService.get('$T'));
         },
+
+        /**
+         * returns vehicle types for logged in user
+         * @returns {type} 
+         */
+        getVehicleTypesList: function () {
+            return $api.sendAPIRequest('Dashboard', 'GetVehicleTypes', localStorageService.get('$T')).then(function (response) {return response.data });
+        }
     }
 });

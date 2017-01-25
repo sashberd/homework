@@ -1,4 +1,4 @@
-﻿app.controller('loginController', function ($api, $state, progressBarManager, $T, localStorageService, $clientData, $security, $timeout,$translate) {
+﻿app.controller('loginController', function ($api, $state, progressBarManager, $T, localStorageService, $clientData, $security, $timeout, $translate, $css) {
     var $this = this;
     this.showProgressBar = false;
     this.progressBarValue = 0;
@@ -30,7 +30,7 @@
                         localStorageService.set('$T', $T);
                         $timeout(function () {
                             //$state.go('map', {/*'a':true*/ });
-                            $state.go('abstract.dashboard', {/*'a':true*/ });
+                            $state.go('dashboard', {/*'a':true*/ });
                         }, 0);
                     }
                     else {
@@ -55,13 +55,20 @@
         }
     };
     this.languageList = [{ alias: 'en', name: 'English', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/gb.png' },
-        { alias: 'he', name: 'עברית', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/il.png' },
+        { alias: 'he', name: 'עברית', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/il.png', isRTL:true },
         { alias: 'ru', name: 'Русский', 'url': 'https://raw.githubusercontent.com/stevenrskelton/flag-icon/master/png/16/country-4x3/ru.png' }]
 
     this.selectedLanguage = this.languageList[0];
     this.onLanguageChange = function () {   
 
         $translate.use(this.selectedLanguage.alias);
+        if (this.selectedLanguage.isRTL) {
+            $css.add('js/dist/css/bootstrap-rtl.min.css');
+        }
+        else {
+            $css.remove('js/dist/css/bootstrap-rtl.min.css');
+        }
     }
+    this.showErrorMessage = function (message) { debugger; }
 
 });

@@ -132,7 +132,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
                 template: '{{getPropertyForObject(option, settings.displayProp)}}',
                 //template: getPropertyForObject(option, settings.displayProp) | html,
                 searchField: '$',
-                headers: JSON.parse($attrs.headers)
+                headers: $attrs.headers ? JSON.parse($attrs.headers) : {}
             };
             $scope.settings.multiColumn = Object.keys($scope.settings.headers).length > 1;
             $scope.settings.columnsCount = Object.keys($scope.settings.headers).length;

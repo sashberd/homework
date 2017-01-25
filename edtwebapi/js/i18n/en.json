@@ -6,5 +6,8 @@
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot your password?",
     "clickHere": "Click Here",
-    "chooseLanguage": ""
+    "chooseLanguage": "",
+    "invalidCredential": "Invalid login credentials! Login Failed!",
+    "loginFields": "Please fill all login fields",
+    "loginServerError": "Connection to server failed. Please contact administrator"
 }

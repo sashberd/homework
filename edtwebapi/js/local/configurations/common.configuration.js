@@ -1,4 +1,4 @@
-﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider/*, IdleProvider*/, $translateProvider, $cssProvider) {
+﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider, $translateProvider, $cssProvider, $validationProvider) {
     $httpProvider.interceptors.push('interceptors');
     localStorageServiceProvider
   .setPrefix('EDT')
@@ -31,7 +31,8 @@
             preload: true,
             bustCache: true
         });
-    //IdleProvider.idle(1080);/*18 minutes*/
-    //IdleProvider.interrupt('keydown DOMMouseScroll mousewheel mousedown touchstart touchmove scroll click')
-    //IdleProvider.timeout(120);/*18 minutes+120 seconds*/
+
+        //$validationProvider.showSuccessMessage = false; // or true(default)
+        //$validationProvider.showErrorMessage = false; // or true(default)
+    
 });

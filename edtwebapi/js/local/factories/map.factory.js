@@ -301,7 +301,7 @@
          */
         filterByVehicles: function (item, isSelected) {
 
-            var vehicleID = Object.prototype.toString.call(item.id) === '[object String]' ? parseInt(angular.element(item.id).find('label')[1].innerText) : item.id;
+            var vehicleID = parseInt(item.id) ? item.id : parseInt(angular.element(item.id).find('label')[1].innerText);
             if (isSelected) {
                 this.filters.vehicleFilters.push(vehicleID);
             }

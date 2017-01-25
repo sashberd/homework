@@ -121,7 +121,7 @@
   margin: 0 10px 0 11px;
 }
 .toggle-menu {
-  display: none !important;
+  display: none;
   width: 28px;
   height: 28px;
   background: url("images/menu-normal.png") no-repeat;

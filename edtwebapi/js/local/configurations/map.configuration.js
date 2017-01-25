@@ -1,18 +1,21 @@
 ﻿app.config(function ($stateProvider, $urlMatcherFactoryProvider, $urlRouterProvider, $locationProvider) {
-    $stateProvider.state('abstract.map', {
+    $stateProvider.state('map', {
         url: '/map?login=a',
         controller: 'mapController',
         controllerAs: 'mapCtrl',
         templateUrl: 'map.template.html',
-        resolve: {           
+        resolve: {
             $mapData: function ($vehiclesList, $mapFactory) {
-                return $mapFactory.getMapData($vehiclesList);               
+                return $mapFactory.getMapData($vehiclesList);
+            },
+            $vehiclesList: function ($abstractFactory) {
+                return $abstractFactory.getVehicleList()
             }
         },
         css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/ui-grid.min.css',
            'js/dist/css/hover-min.min.css', 'js/dist/css/leaflet.min.css', 'js/dist/css/MarkerCluster.min.css',
-           'js/dist/css/multiselect.min.css',  'js/dist/css/treeselect.min.css', 'js/dist/css/map.min.css'],
-        
+           'js/dist/css/multiselect.min.css', 'js/dist/css/treeselect.min.css', 'js/dist/css/map.min.css'],
+
     });
     $urlMatcherFactoryProvider.caseInsensitive(true);
     /*if (window.history && window.history.pushState) {

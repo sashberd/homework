@@ -1,4 +1,4 @@
-﻿app.controller('dashboardController', function ( $dashboardFactory, $commonUtils,  $vehiclesList, $mapFactory) {
+﻿app.controller('dashboardController', function ($dashboardFactory, $commonUtils, $mapFactory, uiGridConstants) {
 
     /**
      *  Buttom chnage color function
@@ -9,11 +9,11 @@
     }
     /**Local variables **/
     this.isCustomHeaderOpen = true;
-    this.vehicleList = $vehiclesList;
+    //this.vehicleList = $vehiclesList;
     this.dashboardFactory = $dashboardFactory;
     this.getWidgetOption = $dashboardFactory.getWidgetOption
-    this.showEmptySettingsMessage = true;
-    this.showSpinner = false;
+    //this.showEmptySettingsMessage = true;
+    //this.showSpinner = false;
 
 
     /*Gridster grid init options*/
@@ -21,7 +21,7 @@
         margins: [20, 20],
         columns: 4,
         rows: 4,
-        rowHeight: 300,
+        rowHeight: 280,
         colWidth: 300,
         draggable: {
             handle: 'h3'
@@ -63,7 +63,11 @@
      * @param {type} filterObject
      * @param {type} widgetId
      */
-    this.getIrrigationMotorData = $dashboardFactory.getIrrigationMotorData
+    this.getIrrigationMotorData = $dashboardFactory.getIrrigationMotorData;
 
-  
+    this.createOverspeedingBreakdownWidget = $dashboardFactory.createOverspeedingBreakdownWidget;
+
+    this.getOverSpeedingDistributionByAmount = $dashboardFactory.getOverSpeedingDistributionByAmount;
+
+
 });

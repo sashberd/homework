@@ -2,100 +2,12 @@ angular.module('app').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('dashboard.template.html',
-    "<uib-accordion><div uib-accordion-group class=\"panel-default\" is-open=\"dashboardCtrl.isCustomHeaderOpen\"><uib-accordion-heading>{{ dashboardCtrl.isCustomHeaderOpen ? 'Hide widget panel' : 'Show widget panel'}} <i class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': dashboardCtrl.isCustomHeaderOpen, 'glyphicon-chevron-right': !dashboardCtrl.isCustomHeaderOpen}\"></i></uib-accordion-heading><button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}\" ng-click=\"dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');\">First Button</button><!--IDLE TIME-CURRENT STATUS--> <button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}\" ng-click=\"dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');\">Second Button</button><!--Irrigation Motor status--></div></uib-accordion><div class=\"container-fluid\"><div class=\"col-md-12\"><!--<div dashboard=\"dashboardCtrl.dashboardOptions\" class=\"dashboard-container\"></div>--><div gridster=\"dashboardCtrl.gridsterOptions\"><ul><li gridster-item=\"widget\" ng-repeat=\"widget in dashboardCtrl.widgets\"><div class=\"box\"><div class=\"box-header\"><h3>{{ widget.name }}</h3><div class=\"box-header-btns pull-right\"><a title=\"settings\" ng-click=\"dashboardCtrl.openWidgetSettings(widget)\"><i class=\"glyphicon glyphicon-cog\"></i></a> <a title=\"Remove widget\" ng-click=\"dashboardCtrl.removeWidget(widget)\"><i class=\"glyphicon glyphicon-trash\"></i></a></div></div><div class=\"box-content\" ng-include=\"widget.template\"></div></div></li></ul></div></div></div>"
+    "<uib-accordion><div uib-accordion-group class=\"panel-default\" is-open=\"dashboardCtrl.isCustomHeaderOpen\"><uib-accordion-heading>{{ dashboardCtrl.isCustomHeaderOpen ? 'Hide widget panel' : 'Show widget panel'}} <i class=\"pull-right glyphicon\" ng-class=\"{'glyphicon-chevron-down': dashboardCtrl.isCustomHeaderOpen, 'glyphicon-chevron-right': !dashboardCtrl.isCustomHeaderOpen}\"></i></uib-accordion-heading><button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}\" ng-click=\"dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');\">First Button</button><!--IDLE TIME-CURRENT STATUS--> <button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}\" ng-click=\"dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');\">Second Button</button><!--Irrigation Motor status--> <button class=\"btn\" ng-class=\"{' btn-success':dashboardCtrl.overspeedingBreakdownSelected,'btn-info':!dashboardCtrl.overspeedingBreakdownSelected}\" ng-click=\"dashboardCtrl.createOverspeedingBreakdownWidget();dashboardCtrl.changeClass('overspeedingBreakdown');\">Third Button</button><!--Over speeding breakdown by amount--></div></uib-accordion><div class=\"container-fluid\"><div class=\"col-md-12\"><!--<div dashboard=\"dashboardCtrl.dashboardOptions\" class=\"dashboard-container\"></div>--><div gridster=\"dashboardCtrl.gridsterOptions\"><ul><li gridster-item=\"widget\" ng-repeat=\"widget in dashboardCtrl.widgets\"><div class=\"box\"><div class=\"box-header\"><h3>{{ widget.name }}</h3><div class=\"box-header-btns pull-right\"><a title=\"settings\" ng-click=\"dashboardCtrl.openWidgetSettings(widget)\"><i class=\"glyphicon glyphicon-cog\"></i></a> <a title=\"Remove widget\" ng-click=\"dashboardCtrl.removeWidget(widget)\"><i class=\"glyphicon glyphicon-trash\"></i></a></div></div><div class=\"box-content\" ng-include=\"widget.template\"></div></div></li></ul></div></div></div>"
   );
 
 
   $templateCache.put('login.template.html',
-    "<!-- Where all the magic happens --><!-- LOGIN FORM --><!--<div class=\"text-center\" style=\"padding: 50px 0\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
-    "\n" +
-    "    <div class=\"logo\">{{ 'login' | translate }}</div>\r" +
-    "\n" +
-    "  \r" +
-    "\n" +
-    "    <div class=\"login-form-1\">\r" +
-    "\n" +
-    "        <form id=\"login-form\" class=\"text-left\">\r" +
-    "\n" +
-    "            <div class=\"login-form-main-message\"></div>\r" +
-    "\n" +
-    "            <div class=\"main-login-form\">\r" +
-    "\n" +
-    "                <div class=\"login-group\">\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"lg_username\" class=\"sr-only\">{{ 'username' | translate }}</label>\r" +
-    "\n" +
-    "                        <input type=\"text\" class=\"form-control\" id=\"lg_username\" name=\"lg_username\" placeholder=\"{{ 'username' | translate }}\" ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"lg_password\" class=\"sr-only\">{{ 'password' | translate }}</label>\r" +
-    "\n" +
-    "                        <input type=\"password\" class=\"form-control\" id=\"lg_password\" name=\"lg_password\" placeholder=\"{{ 'password' | translate }}\" ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group\">\r" +
-    "\n" +
-    "                        <label for=\"txtCompany\" class=\"sr-only\">{{ 'companyName' | translate }}</label>\r" +
-    "\n" +
-    "                        <input type=\"text\" class=\"form-control\" id=\"txtCompany\" name=\"lg_company\" placeholder=\"{{ 'companyName' | translate }}\" ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\">\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"form-group login-group-checkbox\">\r" +
-    "\n" +
-    "                        <input type=\"checkbox\" id=\"lg_remember\" name=\"lg_remember\">\r" +
-    "\n" +
-    "                        <label for=\"lg_remember\">{{ 'rememberMe' | translate }}</label>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <button type=\"button\" class=\"login-button\" ng-click=\"loginCtrl.doLogin()\"><i class=\"glyphicon glyphicon-chevron-right\"></i></button>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div class=\"etc-login-form\">\r" +
-    "\n" +
-    "                <p>{{ 'forgotPassword' | translate }} <a href=\"#\">{{ 'clickHere' | translate }}</a></p>             \r" +
-    "\n" +
-    "                <ui-select ng-model=\"   \"  style=\"min-width: 100px;\" theme=\"bootstrap\" search-enabled=\"false\" on-select=\"loginCtrl.onLanguageChange()\"> \r" +
-    "\n" +
-    "                      <ui-select-match placeholder=\"{{'chooseLanguage'|translate}}\"><img style=\"padding-left:5px;vertical-align: super;\" ng-src=\"{{ $select.selected.url }}\" />&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match>                  \r" +
-    "\n" +
-    "                    <ui-select-choices repeat=\"lang in loginCtrl.languageList\">\r" +
-    "\n" +
-    "                      <img ng-src=\"{{ lang.url }}\" />&nbsp;&nbsp;\r" +
-    "\n" +
-    "                      <div ng-bind-html=\"lang.name | highlight: $select.search\" style=\"display: inline\"></div>\r" +
-    "\n" +
-    "                    </ui-select-choices>\r" +
-    "\n" +
-    "            </ui-select>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{ loginCtrl.loginMessage | translate}}  </div>\r" +
-    "\n" +
-    "        </form>\r" +
-    "\n" +
-    "        <tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    \r" +
-    "\n" +
-    "</div>--><div class=\"container\"><form class=\"form-signin\" on-key-enter=\"loginCtrl.doLogin()\"><h2 class=\"form-signin-heading\">{{ 'login' | translate }}</h2><label for=\"inputEmail\" class=\"sr-only\">{{ 'username' | translate }}</label><input type=\"text\" id=\"inputEmail\" class=\"form-control\" placeholder=\"{{ 'username' | translate }}\" required autofocus ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputPassword\" class=\"sr-only\">{{ 'password' | translate }}</label><input type=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"{{ 'password' | translate }}\" required ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputCompanyName\" class=\"sr-only\">{{ 'companyName' | translate }}</label><input type=\"text\" id=\"txtCompanyName\" class=\"form-control\" placeholder=\"{{ 'companyName' | translate }}\" required ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\"><div class=\"checkbox\"><label><input type=\"checkbox\" value=\"remeber me\"> {{ 'rememberMe' | translate }}</label></div><button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" ng-click=\"loginCtrl.doLogin()\">{{ 'login' | translate }}</button><p>{{ 'forgotPassword' | translate }} <a href=\"#\">{{ 'clickHere' | translate }}</a></p><ui-select ng-model=\"  loginCtrl.selectedLanguage \" style=\"min-width: 100px\" theme=\"bootstrap\" search-enabled=\"false\" on-select=\"loginCtrl.onLanguageChange()\"><ui-select-match placeholder=\"{{'chooseLanguage'|translate}}\"><img style=\"padding-left:5px;vertical-align: super\" ng-src=\"{{ $select.selected.url }}\">&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match><ui-select-choices repeat=\"lang in loginCtrl.languageList\"><img ng-src=\"{{ lang.url }}\">&nbsp;&nbsp;<div ng-bind-html=\"lang.name | highlight: $select.search\" style=\"display: inline\"></div></ui-select-choices></ui-select><div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{ loginCtrl.loginMessage | translate}}</div></form><tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar></div>"
+    "<div class=\"container\"><form class=\"form-signin\" on-key-enter=\"loginCtrl.doLogin()\"><h2 class=\"form-signin-heading\">{{ 'login' | translate }}</h2><label for=\"inputEmail\" class=\"sr-only\">{{ 'username' | translate }}</label><input type=\"text\" id=\"inputEmail\" class=\"form-control\" placeholder=\"{{ 'username' | translate }}\" required autofocus ng-model=\"loginCtrl.username\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputPassword\" class=\"sr-only\">{{ 'password' | translate }}</label><input type=\"password\" id=\"inputPassword\" class=\"form-control\" placeholder=\"{{ 'password' | translate }}\" required ng-model=\"loginCtrl.password\" on-key-enter=\"loginCtrl.doLogin()\"><label for=\"inputCompanyName\" class=\"sr-only\">{{ 'companyName' | translate }}</label><input type=\"text\" id=\"txtCompanyName\" class=\"form-control\" placeholder=\"{{ 'companyName' | translate }}\" required ng-model=\"loginCtrl.companyName\" on-key-enter=\"loginCtrl.doLogin()\"><div class=\"checkbox\"><label><input type=\"checkbox\" value=\"remeber me\"> {{ 'rememberMe' | translate }}</label></div><button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\" ng-click=\"loginCtrl.doLogin()\">{{ 'login' | translate }}</button><p>{{ 'forgotPassword' | translate }} <a href=\"#\">{{ 'clickHere' | translate }}</a></p><ui-select ng-model=\"  loginCtrl.selectedLanguage \" style=\"min-width: 100px\" theme=\"bootstrap\" search-enabled=\"false\" on-select=\"loginCtrl.onLanguageChange()\"><ui-select-match placeholder=\"{{'chooseLanguage'|translate}}\"><img style=\"padding-left:5px;vertical-align: super\" ng-src=\"{{ $select.selected.url }}\">&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match><ui-select-choices repeat=\"lang in loginCtrl.languageList\"><img ng-src=\"{{ lang.url }}\">&nbsp;&nbsp;<div ng-bind-html=\"lang.name | highlight: $select.search\" style=\"display: inline\"></div></ui-select-choices></ui-select><div uib-alert ng-class=\"'alert-danger'\" ng-show=\"loginCtrl.showAlert\">{{ loginCtrl.loginMessage | translate}}</div></form><tek-progress-bar bar-class=\"progress-bar-info\" ng-show=\"loginCtrl.showProgressBar\" ng-model=\"loginCtrl.progressBarValue\" manager=\"loginCtrl.progressManager\">{{loginCtrl.progressBarValue}}%</tek-progress-bar></div>"
   );
 
 
@@ -160,12 +72,12 @@ angular.module('app').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('widgets/common.widget.template.html',
-    "<div ng-show=\"dashboardCtrl.showEmptySettingsMessage\"><label>Click the Settings icon to configure this widget.</label></div><span us-spinner=\"{radius:10, width:3, length: 5,color:'blue'}\" spinner-on=\"dashboardCtrl.showSpinner\"></span>"
+    "<div ng-show=\"widget.showEmptySettingsMessage\"><label>Click the Settings icon to configure this widget.</label></div><span us-spinner=\"{radius:10, width:3, length: 5,color:'blue'}\" spinner-on=\"widget.showSpinner\"></span>"
   );
 
 
   $templateCache.put('widgets/dygraph/dygraph.irrigationMotor.settings.widget.template.html',
-    "<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" ng-click=\"cancel()\">&times;</button><h3>Widget Options <small>{{widget.title}}</small></h3></div><div class=\"modal-body\"><div class=\"row\"><label for=\"clockWidgetRanges\" class=\"control-label\">Select Date Range</label><ob-daterangepicker id=\"clockWidgetRanges\" auto-apply=\"true\" on-apply=\"rangeApplied(start,end)\" ranges=\"ranges\" range=\"range\" calendars-always-on=\"false\" class=\"center\"></ob-daterangepicker></div><div class=\"clockWidgetFilters row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">From</label><input id=\"clockWidgetFromDate\" ng-model=\"selectedRange.from\"><label for=\"clockWidgetToDate\" class=\"control-label\">To</label><input id=\"clockWidgetToDate\" ng-model=\"selectedRange.to\"> <input id=\"clockWidgetFromHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.fromHour\"> <input id=\"clockWidgetToHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.toHour\"></div><div class=\"row mapGridFilters\"><div class=\"col-xs-6 col-sm-6 col-md-6\"><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle group</label><button id=\"btnMapGroupsFilter\" uib-popover-template=\"'treeSelect/treeselect.template.html'\" popover-is-open=\"popoverIsOpen\" ng-click=\"popoverIsOpen = !popoverIsOpen\" popover-trigger=\"'outsideClick'\" popover-placement=\"bottom\" type=\"button\" class=\"btn btn-default\">{{treeButtonText}} <span class=\"caret pull-right\"></span></button></div><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle</label><div ng-dropdown-multiselect=\"\" options=\"vehiclesList\" ng-style=\"{'width':multiselectULMinWidth}\" translation-texts=\"multiSelectCustomTexts\" selected-model=\"multiSelectModel\" extra-settings=\"multiSelectSettings\" headers='{ \"Nickname\": \"NICK_NAME\", \"ID\": \"VEHICLE_BB_ID\"}'></div><div uib-alert ng-class=\"'alert-danger' \" ng-show=\"errorMessage.showError\">{{errorMessage.message}}</div></div></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" ng-click=\"cancel()\">Cancel</button> <button type=\"button\" class=\"btn btn-primary\" ng-click=\"ok()\">OK</button></div>"
+    "<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" ng-click=\"cancel()\">&times;</button><h3>{{widget.settingsTitle}}</h3></div><div class=\"modal-body\"><div class=\"row\"><label for=\"clockWidgetRanges\" class=\"control-label\">Select Date Range</label><ob-daterangepicker id=\"clockWidgetRanges\" auto-apply=\"true\" on-apply=\"rangeApplied(start,end)\" ranges=\"ranges\" range=\"range\" calendars-always-on=\"false\" class=\"center\"></ob-daterangepicker></div><div class=\"clockWidgetFilters row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">From</label><input id=\"clockWidgetFromDate\" ng-model=\"selectedRange.from\"><label for=\"clockWidgetToDate\" class=\"control-label\">To</label><input id=\"clockWidgetToDate\" ng-model=\"selectedRange.to\"> <input id=\"clockWidgetFromHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.fromHour\"> <input id=\"clockWidgetToHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.toHour\"></div><div class=\"row mapGridFilters\"><div class=\"col-xs-6 col-sm-6 col-md-6\"><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle group</label><button id=\"btnMapGroupsFilter\" uib-popover-template=\"'treeSelect/treeselect.template.html'\" popover-is-open=\"popoverIsOpen\" ng-click=\"popoverIsOpen = !popoverIsOpen\" popover-trigger=\"'outsideClick'\" popover-placement=\"bottom\" type=\"button\" class=\"btn btn-default\">{{treeButtonText}} <span class=\"caret pull-right\"></span></button></div><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle type</label><div ng-dropdown-multiselect=\"\" options=\"vehiclesList\" ng-style=\"{'width':multiselectULMinWidth}\" translation-texts=\"multiSelectCustomTexts\" selected-model=\"multiSelectModel\" extra-settings=\"multiSelectSettings\" headers='{ \"Nickname\": \"NICK_NAME\", \"ID\": \"VEHICLE_BB_ID\"}'></div><div uib-alert ng-class=\"'alert-danger' \" ng-show=\"errorMessage.showError\">{{errorMessage.message}}</div></div></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" ng-click=\"cancel()\">Cancel</button> <button type=\"button\" class=\"btn btn-primary\" ng-click=\"ok()\">OK</button></div>"
   );
 
 
@@ -180,7 +92,19 @@ angular.module('app').run(['$templateCache', function($templateCache) {
     "\n" +
     "        chart-labels=\"widget.widgetLabel\" chart-series=\"series\" chart-options=\"widget.widgetOptions\"></canvas>\r" +
     "\n" +
-    "</div>-->"
+    "</div>--><!--<div ng-show=\"widget.showEmptySettingsMessage\"><label>Click the Settings icon to configure this widget.</label></div>\r" +
+    "\n" +
+    " <span us-spinner=\"{radius:10, width:3, length: 5,color:'blue'}\" spinner-on=\"widget.showSpinner\"></span>-->"
+  );
+
+
+  $templateCache.put('widgets/pieChart/pieChart.overspeedingBreakdown.settings.widget.template.html',
+    "<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\" ng-click=\"cancel()\">&times;</button><h3>{{widget.settingsTitle}}</h3></div><div class=\"modal-body\"><div class=\"row\"><label for=\"clockWidgetRanges\" class=\"control-label\">Select Date Range</label><ob-daterangepicker id=\"clockWidgetRanges\" auto-apply=\"true\" on-apply=\"rangeApplied(start,end)\" ranges=\"ranges\" range=\"range\" calendars-always-on=\"false\" class=\"center\"></ob-daterangepicker></div><div class=\"clockWidgetFilters row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">From</label><input id=\"clockWidgetFromDate\" ng-model=\"selectedRange.from\"><label for=\"clockWidgetToDate\" class=\"control-label\">To</label><input id=\"clockWidgetToDate\" ng-model=\"selectedRange.to\"> <input id=\"clockWidgetFromHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.fromHour\"> <input id=\"clockWidgetToHour\" class=\"clockSettingsMinutes\" ng-model=\"selectedRange.toHour\"></div><div class=\"row mapGridFilters\"><div class=\"col-xs-6 col-sm-6 col-md-6\"><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle group</label><button id=\"btnMapGroupsFilter\" uib-popover-template=\"'treeSelect/treeselect.template.html'\" popover-is-open=\"popoverIsOpen\" ng-click=\"popoverIsOpen = !popoverIsOpen\" popover-trigger=\"'outsideClick'\" popover-placement=\"bottom\" type=\"button\" class=\"btn btn-default\">{{treeButtonText}} <span class=\"caret pull-right\"></span></button></div><div class=\"row\"><label for=\"clockWidgetFromDate\" class=\"control-label\">Vehicle</label><div ng-dropdown-multiselect=\"\" options=\"vehiclesTypesList\" ng-style=\"{'width':multiselectULMinWidth}\" translation-texts=\"multiSelectCustomTexts\" selected-model=\"multiSelectModel\" extra-settings=\"multiSelectSettings\"></div><div uib-alert ng-class=\"'alert-danger' \" ng-show=\"errorMessage.showError\">{{errorMessage.message}}</div></div></div></div></div><div class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" ng-click=\"cancel()\">Cancel</button> <button type=\"button\" class=\"btn btn-primary\" ng-click=\"ok()\">OK</button></div>"
+  );
+
+
+  $templateCache.put('widgets/pieChart/pieChart.overspeedingBreakdown.widget.template.html',
+    "<div style=\"display:block;float:left\" id=\"dashboardDataGrid\" ui-grid=\"dashboardCtrl.gridOptions\" ui-grid-auto-fit-columns class=\"grid\"><div class=\"watermark\" ng-show=\"!dashboardCtrl.gridOptions.data.length\">No data available</div></div><div style=\"display:block;float:left\"><nvd3 options=\"widget.widgetOptions\" data=\"widget.widgetData\"></nvd3></div>"
   );
 
 }]);
