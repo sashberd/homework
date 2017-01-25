@@ -193,6 +193,9 @@
     <Compile Include="Models\Dashboard\GetIdleTimeCurrentStatusResponse.cs" />
     <Compile Include="Models\Dashboard\GetIrrigationMotorDataRequest.cs" />
     <Compile Include="Models\Dashboard\GetIrrigationMotorDataResponse.cs" />
+    <Compile Include="Models\Dashboard\GetOverSpeedingDistributionByAmountRequest.cs" />
+    <Compile Include="Models\Dashboard\GetVehicleTypesRequest.cs" />
+    <Compile Include="Models\Dashboard\VehicleType.cs" />
     <Compile Include="Models\General\GATRequest.cs" />
     <Compile Include="Models\General\GATResponse.cs" />
     <Compile Include="Models\Map\GetUserCompanyGroupDataRequest.cs" />
@@ -262,6 +265,7 @@
     <Content Include="js\local\controllers\map.controller.js" />
     <Content Include="js\local\controllers\refuels.grid.controller.js" />
     <Content Include="js\local\controllers\widgets\irrigationMotor.widget.settings.controller.js" />
+    <Content Include="js\local\controllers\widgets\overspeedingBreakdown.widget.settings.controller.js" />
     <Content Include="js\local\directives\navbarVisibility.directive.js" />
     <Content Include="js\local\directives\navigationBar.directive.js" />
     <Content Include="js\local\directives\ngxTimer.directive.js" />
@@ -280,6 +284,7 @@
     <Content Include="js\local\filters\html.filter.js" />
     <Content Include="js\local\filters\map.grid.status.filter.js" />
     <Content Include="js\local\filters\map.grid.vehcile.filter.js" />
+    <Content Include="js\local\filters\percentage.filter.js" />
     <Content Include="js\local\modules\dashboard.module.js" />
     <Content Include="js\local\modules\login.module.js" />
     <Content Include="js\local\modules\map.module.js" />
@@ -310,6 +315,7 @@
     <Content Include="js\static_images\group-close.png" />
     <Content Include="js\static_images\group_open.png" />
     <Content Include="js\static_images\menu-normal.png" />
+    <Content Include="js\static_images\reports.png" />
     <Content Include="js\static_images\sum_sign.png" />
     <Content Include="js\static_images\tanker.png" />
     <Content Include="templates\dashboard.template.html" />
@@ -326,6 +332,8 @@
     <Content Include="templates\widgets\clock\clock.template.html" />
     <Content Include="templates\widgets\clock\clockWidget.template.html" />
     <Content Include="templates\widgets\dygraph\dygraph.irrigationMotor.widget.template.html" />
+    <Content Include="templates\widgets\pieChart\pieChart.overspeedingBreakdown.widget.template.html" />
+    <Content Include="templates\widgets\pieChart\pieChart.overspeedingBreakdown.settings.widget.template.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

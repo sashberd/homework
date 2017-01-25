@@ -62,8 +62,8 @@
                 return $q.all([serviceIP, findIP(function (ip) { return ip })]);
             }
 
-        },
-        hideNavBar:true
+        }
+       
     });
     $urlMatcherFactoryProvider.caseInsensitive(true);
     //check browser support

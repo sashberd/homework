@@ -54,17 +54,6 @@ namespace EDT.WebAPI.Controllers
             {
                 using (var dashboardUtils = new BLDashboards())
                 {
-                    //response = new GetIrrigationMotorDataResponse()
-                    //{
-                    //    IrrigationMotorData = dashboardUtils.Widget_IrrigationMotor4NAR(
-                    //    userData.CompanyId, 
-                    //    request.DateFrom.convertDate().Value, 
-                    //    request.DateTo.convertDate().Value,
-                    //    request.TimeFrom.convertTime().Value, 
-                    //    request.DateTo.convertTime().Value, 
-                    //    request.VehicleID),
-                    //    VolumeUnit = userData.Company.VolumeUnitText
-                    //};
                     response = new GetIrrigationMotorDataResponse()
                     {
                         IrrigationMotorData = dashboardUtils.Widget_IrrigationMotor4NAR(
@@ -79,6 +68,44 @@ namespace EDT.WebAPI.Controllers
                 }
             }
             return response;
+        }
+
+        [HttpPost]
+        [ActionName("GetVehicleTypes")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
+        public IEnumerable<VehicleType> GetVehicleTypes(GetVehicleTypesRequest request)
+        {
+            request.DecodeAuthToken();
+            BLUser userData = new BLUser();
+            userData = CachingLayer.GetCacheObjectByType(request.SID, userData.GetType());
+            IEnumerable<VehicleType> vehicleTypeList = null;
+            if (userData != null)
+            {
+                BLUtils utils = new BLUtils();
+                vehicleTypeList = utils.GetVehicleTypes(userData.CompanyId).DataTableToList<VehicleType>();
+            }
+            return vehicleTypeList;
+        }
+        [HttpPost]
+        [ActionName("GetOverSpeedingDistributionByAmount")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
+        public List<WIDGET_OverspeedDistributionByAmountCEMEXResult> GetOverSpeedingDistributionByAmount(GetOverSpeedingDistributionByAmountRequest request)
+        { 
+            request.DecodeAuthToken();
+            BLUser userData = new BLUser();
+            userData = CachingLayer.GetCacheObjectByType(request.SID, userData.GetType());
+            List<WIDGET_OverspeedDistributionByAmountCEMEXResult> overspeedDistributionByAmountData = new List<WIDGET_OverspeedDistributionByAmountCEMEXResult>();
+            if (userData != null)
+            {
+                using (var dashboardUtils = new BLDashboards())
+                {
+                    int _vehicleGroupID=request.VehicleGroupID>0?request.VehicleGroupID:userData.VehicleNodeId;
+                    overspeedDistributionByAmountData = dashboardUtils.Widget_OverspeedDistributionByAmountCEMEX(userData.CompanyId, request.DateFrom, request.DateTo, request.DateFrom, request.DateTo, _vehicleGroupID, request.VehicleTypeID);
+                }
+            }
+            return overspeedDistributionByAmountData;
         }
     }
 }

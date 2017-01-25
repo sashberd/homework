@@ -1,4 +1,5 @@
-﻿app.controller('irrigationMotor.widget.settings.controller', function ($scope, $uibModalInstance, $groupsData, $vehicleList, $commonUtils, $widget, $dashboardParent, $filter, ivhTreeviewMgr) {//TODO SPLIT TO OWN CONTROLLER
+﻿app.controller('overspeedingBreakdown.widget.settings.controller', function ($scope, $uibModalInstance, $groupsData, $vehicleTypesList, $commonUtils, $widget, $dashboardParent, ivhTreeviewMgr) {//TODO SPLIT TO OWN CONTROLLER
+
     $scope.widget = $widget;
     $scope.ranges = [{
         name: 'Today',
@@ -45,10 +46,10 @@
         $scope.selectedRange.toHour = end.endOf('d').format('HH:mm');
     };
 
-    $scope.vehiclesList = $vehicleList;
+    $scope.vehiclesTypesList = $vehicleTypesList;
     $scope.multiSelectSettings = {
-        displayProp: 'NICK_NAME',
-        idProp: 'VEHICLE_BB_ID',
+        displayProp: 'NAME',
+        idProp: 'ID',
         scrollableHeight: '500px',
         scrollable: true,
         enableSearch: true,
@@ -62,7 +63,7 @@
         }
     }
     $scope.multiSelectCustomTexts = {
-        buttonDefaultText: 'Select vehicle'
+        buttonDefaultText: 'Search by all vehicle types'
     };
     $scope.multiSelectModel = [];
 
@@ -99,7 +100,7 @@
             $scope.selectedGroup = {};
         }
     }
-    $scope.treeButtonText = 'Click to filter by groups ';
+    $scope.treeButtonText = 'Search by all groups ';
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss();
@@ -110,23 +111,20 @@
     }
     $scope.ok = function () {
         $scope.errorMessage.showError = false;
-        if (!$scope.multiSelectModel.length) {
-            $scope.errorMessage.showError = true;
-            $scope.errorMessage.message = 'Vehicle ID is required for search'
-        }
-        else if (!$scope.selectedRange.from && $scope.selectedRange.to) {
+        if (!$scope.selectedRange.from && $scope.selectedRange.to) {
             $scope.errorMessage.showError = true;
             $scope.errorMessage.message = 'Date range is required for search'
         }
         else {
             $widget.showEmptySettingsMessage = false;
             $widget.showSpinner = true;
-            $dashboardParent.getIrrigationMotorData({
+            $dashboardParent.getOverSpeedingDistributionByAmount({
                 dateFrom: moment($scope.selectedRange.from + ' ' + $scope.selectedRange.fromHour, 'DD/MM/YYYY HH:mm').toDate(),
                 dateTo: moment($scope.selectedRange.to + ' ' + $scope.selectedRange.toHour, 'DD/MM/YYYY HH:mm').toDate(),
                 timeFrom: moment($scope.selectedRange.fromHour, ['HH:mm']).toDate(),
                 timeTo: moment($scope.selectedRange.toHour, ['HH:mm']).toDate(),
-                vehicleID: $scope.multiSelectModel[0].id
+                vehicleTypeId: $scope.multiSelectModel.length ? $scope.multiSelectModel[0].id : -1,
+                VehicleGroupId : !$commonUtils.isObjectEmpty($scope.selectedGroup) ? $scope.selectedGroup.GROUP_ID : -1
             }, $widget.id);
 
             $dashboardParent.dashboardFactory.setSettingsData($widget.id, {

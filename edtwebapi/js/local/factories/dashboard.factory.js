@@ -1,6 +1,7 @@
-﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService,$uibModal) {
+﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService, $uibModal, $abstractFactory, uiGridConstants, $filter) {
     var widgets = [];
     var settingsData = {};
+    var factory = this;
     return {
         /**
          * Getter for widget
@@ -13,8 +14,8 @@
          * Getter and setter for settings data
          * @returns {Object} 
          */
-        getSettingsData: function () { return settingsData },
-        setSettingsData: function (_settingsData) { settingsData = _settingsData },
+        getSettingsData: function (widgetId) { return settingsData[widgetId] },
+        setSettingsData: function (widgetId, _settingsData) { settingsData[widgetId] = _settingsData },
         /**************************************/
         /**
          * Calling api of idle status
@@ -61,42 +62,42 @@
                 return '';
             }
 
-            var table = d3.select(document.createElement("table"));
+            var table = d3.select(document.createElement('table'));
 
-            var theadEnter = table.selectAll("thead")
+            var theadEnter = table.selectAll('thead')
                 .data([d])
-                .enter().append("thead");
+                .enter().append('thead');
 
-            theadEnter.append("tr")
-                .append("td")
-                .attr("colspan", 3)
-                .append("strong")
-                .classed("x-value", true)
+            theadEnter.append('tr')
+                .append('td')
+                .attr('colspan', 3)
+                .append('strong')
+                .classed('x-value', true)
                 .html(currentChartOptions.xTickFormat(d.value));
 
 
-            var tbodyEnter = table.selectAll("tbody")
+            var tbodyEnter = table.selectAll('tbody')
                 .data([d])
-                .enter().append("tbody");
+                .enter().append('tbody');
 
-            var trowEnter = tbodyEnter.selectAll("tr")
+            var trowEnter = tbodyEnter.selectAll('tr')
                     .data(function (p) { return p.series })
                     .enter()
-                    .append("tr")
-                    .classed("highlight", function (p) { return p.highlight });
+                    .append('tr')
+                    .classed('highlight', function (p) { return p.highlight });
 
-            trowEnter.append("td")
-                .classed("legend-color-guide", true)
-                .append("div")
-                .style("background-color", function (p) { return p.color });
+            trowEnter.append('td')
+                .classed('legend-color-guide', true)
+                .append('div')
+                .style('background-color', function (p) { return p.color });
 
-            trowEnter.append("td")
-                .classed("key", true)
-                .classed("total", function (p) { return !!p.total })
+            trowEnter.append('td')
+                .classed('key', true)
+                .classed('total', function (p) { return !!p.total })
                 .html(function (p, i) { return currentChartOptions.tooltipKeyFormat(p.key, i) });
 
-            trowEnter.append("td")
-                .classed("value", true)
+            trowEnter.append('td')
+                .classed('value', true)
                 .html(function (p, i) {
                     var formatFunction = p.formatFunction || currentChartOptions.yTickFormat;
                     var extraString = '';
@@ -106,24 +107,24 @@
                     return formatFunction(p.value, i) + extraString;
                 });
 
-            trowEnter.filter(function (p, i) { return p.percent !== undefined }).append("td")
-                .classed("percent", true)
-                .html(function (p, i) { return "(" + d3.format('%')(p.percent) + ")" });
+            trowEnter.filter(function (p, i) { return p.percent !== undefined }).append('td')
+                .classed('percent', true)
+                .html(function (p, i) { return '(' + d3.format('%')(p.percent) + ')' });
 
-            trowEnter.selectAll("td").each(function (p) {
+            trowEnter.selectAll('td').each(function (p) {
                 if (p.highlight) {
-                    var opacityScale = d3.scale.linear().domain([0, 1]).range(["#fff", p.color]);
+                    var opacityScale = d3.scale.linear().domain([0, 1]).range(['#fff', p.color]);
                     var opacity = 0.6;
                     d3.select(this)
-                        .style("border-bottom-color", opacityScale(opacity))
-                        .style("border-top-color", opacityScale(opacity))
+                        .style('border-bottom-color', opacityScale(opacity))
+                        .style('border-top-color', opacityScale(opacity))
                     ;
                 }
             });
 
             var html = table.node().outerHTML;
             if (d.footer !== undefined)
-                html += "<div class='footer'>" + d.footer + "</div>";
+                html += '<div class="footer">' + d.footer + '</div>';
             return html;
 
         },
@@ -149,7 +150,7 @@
                     widgetId: currentChartOptions.widgetId,
                     key: currentChartOptions.key,
                     lineColor: currentChartOptions.color,
-                    type: 'lineChart',
+                    type: currentChartOptions.chartType,
                     height: 200,
                     width: 780,
                     margin: {
@@ -234,6 +235,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType:'lineChart',
                     yaxisLabel: 'Odometer',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -241,11 +243,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -265,6 +267,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType: 'lineChart',
                     yaxisLabel: 'RPM',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -272,11 +275,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -296,6 +299,7 @@
                     key: 'Water', color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType: 'lineChart',
                     yaxisLabel: 'Water per minute',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -303,11 +307,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -327,6 +331,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType: 'lineChart',
                     yaxisLabel: 'PSI',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -334,11 +339,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -360,6 +365,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType: 'lineChart',
                     extraValueUnit: responseData.VolumeUnit,
                     yaxisLabel: 'Fuel',
                     xaxisLabel: 'Date',
@@ -368,11 +374,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -394,6 +400,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
+                    chartType: 'lineChart',
                     yaxisLabel: 'Hours',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -401,11 +408,11 @@
                         if (typeof this != 'undefined') {
                             var el = d3.select(this);
                             var p = d3.select(this.parentNode);
-                            p.append("foreignObject")
+                            p.append('foreignObject')
                                    .attr('x', -50)
-                                   .attr("width", 80)
-                                   .attr("height", 20)
-                                   .append("xhtml:p")
+                                   .attr('width', 80)
+                                   .attr('height', 20)
+                                   .append('xhtml:p')
                                    .attr('style', 'word-wrap: break-word; text-align:center;font:400 12px Arial,sans-serif; font-weight:700')
                                    .html(result);
 
@@ -471,7 +478,10 @@
                     sizeX: 2,
                     template: 'widgets/clock/clock.template.html',
                     settingsTemplate: 'modal/commonSettings.template.html',
-                    widgetData: {}
+                    widgetData: {},
+                    widgetResolve: {},
+                    showEmptySettingsMessage: true,
+                    showSpinner: false
                 };
 
                 Object.keys(response.data).forEach(function (item) {
@@ -495,6 +505,7 @@
             this.widgets.push({
                 id: $commonUtils.generateQuickGuid(),
                 name: 'Irrigation motor',
+                settingsTitle: 'Irrigation motor options',
                 sizeY: 1,
                 sizeX: 3,
                 template: 'widgets/common.widget.template.html',//TODO to template
@@ -502,18 +513,14 @@
                 widgetData: [],
                 widgetOptions: [],
                 widgetApi: [],
-                controllerName: 'irrigationMotor.widget.settings.controller',
-                controllerAsAlias: 'irrigationMotorWidgetSettingsCtrl',
-                //onReadyCallback: function (scope, element) {
-                //    setTimeout(function () {
-                //        if (scope.data[0].extraValueUnit) {
-                //            var currentLable = scope.chart.yAxis._axisLabel();
-                //            scope.chart.yAxis.axisLabel(currentLable + ' (' + scope.data[0].extraValueUnit + ')');
-                //        }
-
-                //    }, 0);
-                //},
-
+                settingsControllerName: 'irrigationMotor.widget.settings.controller',
+                settingsControllerAsAlias: 'irrigationMotorWidgetSettingsCtrl',
+                widgetResolve: {
+                    $groupsData: $abstractFactory.getGroupsData(),
+                    $vehicleList: $abstractFactory.getVehicleList()
+                },
+                showEmptySettingsMessage: true,
+                showSpinner: false
             });
         },
         /**
@@ -522,6 +529,8 @@
          */
         removeWidget: function (widget) {
             this.widgets.splice(this.widgets.indexOf(widget), 1);
+            widget.showEmptySettingsMessage = true;
+            widget.showSpinner = false;
         },
         /**
          * OPen widget button callback
@@ -529,17 +538,19 @@
          */
         openWidgetSettings: function (widget) {
             var $this = this;
+            var commonResolves = {
+                $widget: function () {
+                    return widget;
+                },
+                $dashboardParent: function () { return $this; }
+            };
+            var resolve = angular.extend(commonResolves, widget.widgetResolve);
             $uibModal.open({
                 templateUrl: widget.settingsTemplate,
-                controllerAs: widget.controllerAsAlias,
+                controllerAs: widget.settingsControllerAsAlias,
                 bindToController: true,
-                controller: widget.controllerName,
-                resolve: {
-                    $widget: function () {
-                        return widget;
-                    },
-                    $dashboardParent: function () { return $this; }
-                }
+                controller: widget.settingsControllerName,
+                resolve: resolve
             });
         },
         /**
@@ -571,10 +582,120 @@
                 widget.template = 'widgets/dygraph/dygraph.irrigationMotor.widget.template.html';
                 widget.sizeY = widget.widgetData.length;
 
-                $this.showEmptySettingsMessage = true;
-                $this.showSpinner = false;
+                //widget.showEmptySettingsMessage = true;
+                widget.showSpinner = false;
             });
-        }
+        },
 
+
+        createOverspeedingBreakdownWidget: function () {
+            this.widgets.push({
+                id: $commonUtils.generateQuickGuid(),
+                name: 'Over speeding breakdown by amount',
+                settingsTitle: 'Over speeding breakdown by amount options',
+                sizeY: 1,
+                sizeX: 3,
+                template: 'widgets/common.widget.template.html',//TODO to template
+                settingsTemplate: 'widgets/pieChart/pieChart.overspeedingBreakdown.settings.widget.template.html',
+                widgetData: [],
+                widgetOptions: [],
+                widgetApi: [],
+                settingsControllerName: 'overspeedingBreakdown.widget.settings.controller',
+                settingsControllerAsAlias: 'overspeedingBreakdownSettingsCtrl',
+                widgetResolve: {
+                    $groupsData: $abstractFactory.getGroupsData(),
+                    $vehicleTypesList: $abstractFactory.getVehicleTypesList()
+                },
+                showEmptySettingsMessage: true,
+                showSpinner: false
+            });
+        },
+        getOverSpeedingDistributionByAmount: function (filterObject, widgetId) {
+            var $this = this;
+            $api.sendAPIRequest('Dashboard', 'GetOverSpeedingDistributionByAmount', angular.extend(localStorageService.get('$T'), filterObject)).then(function (response) {
+
+                var widget = $this.widgets.find(function (item) { return item.id === widgetId });
+                var totalVehicleSum = response.data.reduce(function (sum, current) { return sum + current.VEHCILES_COUNT; }, 0);
+                response.data = response.data.map(function (item, index) { return angular.extend(item, { percentage: $filter('percentage')((item.VEHCILES_COUNT / totalVehicleSum) * 100, 1), colors: $this.dashboardFactory.getRandomColors() }) });
+                $this.gridOptions = {
+                    enableSorting: false,
+                    enableColumnMenus: false,
+                    minRowsToShow: 4,
+                    showColumnFooter: true,
+                    appScopeProvider: $this,
+                    data: response.data,
+                    enableHorizontalScrollbar: 0,
+                    enableVerticalScrollbar: 0,
+                    columnDefs: [
+                    {
+                        name: 'Occurences',
+                        field: 'OVERSPEED_AMOUNT',
+                        width: 100,
+                        cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>'
+                    },
+                    {
+                        name: 'Vehicles',
+                        field: 'VEHCILES_COUNT',
+                        width: 100,
+                        cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>',
+                        aggregationType: uiGridConstants.aggregationTypes.sum,
+                        footerCellTemplate: '<div class="ui-grid-cell-contents" >Total: {{col.getAggregationValue()}}</div>'
+                    },
+                     {
+                         name: '%',
+                         width: '*',
+                         field: 'percentage',
+                         cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>',
+                         footerCellTemplate: '<img class="reports" src="js/dist/css/images/reports.png"/>'
+                     }
+                    ]
+                };
+                widget.widgetOptions = {
+                    chart: {
+                        id: $commonUtils.generateQuickGuid(),
+                        widgetId: widgetId,
+                        color: function (d, i) { return $this.gridOptions.data.find(function (item) { return item.OVERSPEED_AMOUNT == d.OVERSPEED_AMOUNT }).colors.medium },
+                        type: 'pieChart',
+                        height: 250,
+                        x: function (d) { return parseFloat(d.percentage).toFixed(1) + '%'; },
+                        y: function (d) { return parseFloat(d.percentage).toFixed(1); },
+                        showLabels: true,
+                        duration: 500,
+                        labelThreshold: 0.01,
+                        labelSunbeamLayout: true,
+                        showLegend: false,
+                        tooltip: {
+                            keyFormatter: function (d) { return ''; }
+                        },
+                        labelFormat: function (d) { var t = $this; return d + '%' },
+                        margin: { 'top': -5, 'right': 20, 'bottom': 20, 'left': 50 },
+                        donut: true,
+                    }
+                };
+                widget.widgetData = response.data;
+                widget.showSpinner = false;
+                widget.template = 'widgets/pieChart/pieChart.overspeedingBreakdown.widget.template.html';
+            });
+
+        },
+        getRandomColors: function () {
+            var red = Math.ceil(Math.random() * 230);
+            var green = Math.ceil(Math.random() * 230);
+            var blue = Math.ceil(Math.random() * 230);
+            medium = 'rgb(' + red + ',' + green + ',' + blue + ')'; //RGB value
+
+            var darkRed = Math.ceil(red * 0.6);
+            var darkGreen = Math.ceil(green * 0.6);
+            var darkBlue = Math.ceil(blue * 0.6);
+            dark = 'rgb(' + (darkRed) + ',' + (darkGreen) + ',' + darkBlue + ')'; //RGB value
+            //notice the difference in setting ltRed,ltGreen and ltBlue. The result is the same
+            var ltRed = Math.ceil(red * 1.5);
+            if (ltRed > 255) ltRed = 255;
+            var ltGreen = Math.ceil(green * 1.5);
+            ltGreen = Math.min(ltGreen, 255);
+            var ltBlue = Math.min(Math.ceil(blue * 1.5), 255);
+            light = 'rgb(' + (ltRed) + ',' + (ltGreen) + ',' + ltBlue + ')'; //RGB value
+            return { dark: dark, light: light, medium: medium }
+        }
     }
 });

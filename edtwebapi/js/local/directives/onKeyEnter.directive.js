@@ -2,7 +2,7 @@
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
-            element.bind('keydown keypress', function (event) {
+            element.bind('keydown keypress', function (event) {              
                 if (event.which === 13) {
                     var attrValue = $parse(attrs.onKeyEnter);
                     (typeof attrValue === 'function') ? attrValue(scope) : angular.noop();

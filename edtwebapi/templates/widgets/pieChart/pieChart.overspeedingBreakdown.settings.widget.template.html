@@ -1,6 +1,6 @@
 ﻿<div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
-    <h3>{{widget.settingsTitle}}</h3>
+      <h3>{{widget.settingsTitle}}</h3>
 </div>
 <div class="modal-body">
 
@@ -26,10 +26,10 @@
                 </button>
             </div>
             <div class="row">
-                <label for="clockWidgetFromDate" class="control-label">Vehicle type</label>
-                <div ng-dropdown-multiselect="" options="vehiclesList" ng-style="{'width':multiselectULMinWidth}" translation-texts="multiSelectCustomTexts"
+                <label for="clockWidgetFromDate" class="control-label">Vehicle</label>
+                <div ng-dropdown-multiselect="" options="vehiclesTypesList" ng-style="{'width':multiselectULMinWidth}" translation-texts="multiSelectCustomTexts"
                     selected-model="multiSelectModel"
-                    extra-settings="multiSelectSettings" headers='{ "Nickname": "NICK_NAME", "ID": "VEHICLE_BB_ID"}'>
+                    extra-settings="multiSelectSettings" >
                 </div>
                 <div uib-alert ng-class="'alert-danger' " ng-show="errorMessage.showError">{{errorMessage.message}}</div>
             </div>

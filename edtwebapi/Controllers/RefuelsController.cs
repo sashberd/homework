@@ -18,6 +18,8 @@ namespace EDT.WebAPI.Controllers
     {
         [HttpPost]
         [ActionName("GetUserPumps")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
         public IEnumerable<PumpDataObject> getUserPumpsList()
         {
             BLUtils utils = new BLUtils();
@@ -30,6 +32,8 @@ namespace EDT.WebAPI.Controllers
 
         [HttpPost]
         [ActionName("GetUserTypeAndSources")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
         public IEnumerable<TypesAndSourcesDataObject> getUserTypeAndSourcesList()
         {
             BLAspLookupTables typesAndSources = new BLAspLookupTables(BLAspLookupTables.TABLE_NAME_ASP_FUELING_METHOD);
@@ -40,6 +44,8 @@ namespace EDT.WebAPI.Controllers
         }
         [HttpPost]
         [ActionName("GetUserDrivers")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
         public IEnumerable<DriverItemInfo> getGetUserDriversList()
         {
             BLCommon common = new BLCommon();
@@ -48,6 +54,8 @@ namespace EDT.WebAPI.Controllers
         }
         [HttpPost]
         [ActionName("GetUserSearchTags")]
+        [Filters.Authorize]
+        //[RestAuthenticationAttribute]
         public IEnumerable<SearchTagDataObject> getUserSearchTagsList()
         {
             BLUtils utils = new BLUtils();

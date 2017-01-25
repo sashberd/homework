@@ -59,4 +59,17 @@ div[gridster] form {
 .dropdown-menu {
     min-width:225px !important;
 }
+#dashboardDataGrid {
+    width:270px;    
+    border:2px solid grey;
+    border-radius:10px;
+    margin:10px;
+}
+.reports {
+    background-image:url(images/reports.png) ;
+    margin:5px 0px 0px 25px;
+}
+#dashboardDataGrid .ui-grid-header-cell .ui-grid-cell-contents{
+text-align:center;
+}
 

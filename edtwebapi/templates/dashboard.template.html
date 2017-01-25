@@ -9,6 +9,9 @@
 
       <button class="btn " ng-class="{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}" 
           ng-click="dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');">Second Button</button><!--Irrigation Motor status-->
+
+       <button class="btn " ng-class="{' btn-success':dashboardCtrl.overspeedingBreakdownSelected,'btn-info':!dashboardCtrl.overspeedingBreakdownSelected}" 
+          ng-click="dashboardCtrl.createOverspeedingBreakdownWidget();dashboardCtrl.changeClass('overspeedingBreakdown');">Third Button</button><!--Over speeding breakdown by amount-->
    
 </div>
       </uib-accordion>
