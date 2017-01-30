@@ -14,11 +14,11 @@
                 {{ 'rememberMe' | translate }}
               
          
-            </label>
+            </label> 
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="loginCtrl.doLogin()">{{ 'login' | translate }}</button>
         <p>{{ 'forgotPassword' | translate }} <a href="#">{{ 'clickHere' | translate }}</a></p>
-        <ui-select ng-model="  loginCtrl.selectedLanguage " style="min-width: 100px;" theme="bootstrap" search-enabled="false" on-select="loginCtrl.onLanguageChange()"> 
+        <ui-select position="down" all-choices="loginCtrl.languageList"  refresh-delay="0"  ng-model="loginCtrl.selectedLanguage " style="min-width: 100px;" theme="bootstrap" search-enabled="false" on-select="loginCtrl.onLanguageChange()"> 
                       <ui-select-match placeholder="{{'chooseLanguage'|translate}}"><img style="padding-left:5px;vertical-align: super;" ng-src="{{ $select.selected.url }}" />&nbsp;&nbsp; {{$select.selected.name}}</ui-select-match>                  
                     <ui-select-choices repeat="lang in loginCtrl.languageList">
                       <img ng-src="{{ lang.url }}" />&nbsp;&nbsp;

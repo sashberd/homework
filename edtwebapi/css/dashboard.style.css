@@ -68,6 +68,7 @@ div[gridster] form {
 .reports {
     background-image:url(images/reports.png) ;
     margin:5px 0px 0px 25px;
+    cursor:pointer;
 }
 #dashboardDataGrid .ui-grid-header-cell .ui-grid-cell-contents{
 text-align:center;

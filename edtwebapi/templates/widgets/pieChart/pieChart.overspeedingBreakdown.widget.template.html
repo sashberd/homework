@@ -1,8 +1,12 @@
-﻿<div style="display:block;float:left" id="dashboardDataGrid" ui-grid="dashboardCtrl.gridOptions" ui-grid-auto-fit-columns class="grid">
+﻿<div ng-if="dashboardCtrl.gridOptions.data.length">
+    <div style="display: block; float: left" id="dashboardDataGrid" ui-grid="dashboardCtrl.gridOptions" ui-grid-auto-fit-columns ui-grid-exporter class="grid">
 
-    <div class="watermark" ng-show="!dashboardCtrl.gridOptions.data.length">No data available</div>
+        <div class="watermark" ng-show="!dashboardCtrl.gridOptions.data.length">No data available</div>
+    </div>
+    <div style="display: block; float: left">
+        <nvd3 options="widget.widgetOptions" data="widget.widgetData"></nvd3>
+    </div>
 </div>
-<div style="display:block;float:left">
-    <nvd3 options="widget.widgetOptions" data="widget.widgetData"></nvd3>
-</div>
-
+<div ng-show="widget.showEmptySettingsMessage">
+    <label>Click the Settings icon to configure this widget.</label></div>
+<span us-spinner="{radius:10, width:3, length: 5,color:'blue'}" spinner-on="widget.showSpinner"></span>

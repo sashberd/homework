@@ -1,11 +1,12 @@
-﻿using System;
+﻿using EDT.WebAPI.Models.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace EDT.WebAPI.Models.Refuels
 {
-    public class RefuelSearchDataObjectRequest
+    public class RefuelSearchDataObjectRequest:CommonRequest
     {
 
         //Convert.ToDateTime(DatePicker.SelectedDate, DateFormatInfo)

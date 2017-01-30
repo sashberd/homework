@@ -5,23 +5,23 @@
         controllerAs: 'refuelCtrl',
         templateUrl: 'refuel.grid.template.html',
         resolve: {
-            $refuelsPumpsResolve: function ($api, $refuelsGridFactory) {               
-                return $api.sendAPIRequest('Refuels', 'GetUserPumps').then($refuelsGridFactory.getResolveSuccessFunction());
+            $refuelsPumpsResolve: function ($api, $refuelsGridFactory, localStorageService) {              
+                return $api.sendAPIRequest('Refuels', 'GetUserPumps',localStorageService.get('$T')).then($refuelsGridFactory.getResolveSuccessFunction());
             },
-            $typesAndSourcesResolve: function ($api, $refuelsGridFactory) {
-                return $api.sendAPIRequest('Refuels', 'GetUserTypeAndSources').then($refuelsGridFactory.getResolveSuccessFunction());
+            $typesAndSourcesResolve: function ($api, $refuelsGridFactory, localStorageService) {
+                return $api.sendAPIRequest('Refuels', 'GetUserTypeAndSources', localStorageService.get('$T')).then($refuelsGridFactory.getResolveSuccessFunction());
             },
-            $driversResolve: function ($api, $refuelsGridFactory) {
-                return $api.sendAPIRequest('Refuels', 'GetUserDrivers').then($refuelsGridFactory.getResolveSuccessFunction());
+            $driversResolve: function ($api, $refuelsGridFactory, localStorageService) {
+                return $api.sendAPIRequest('Refuels', 'GetUserDrivers', localStorageService.get('$T')).then($refuelsGridFactory.getResolveSuccessFunction());
             },
-            $searchTagsResolve: function ($api, $refuelsGridFactory) {
-                return $api.sendAPIRequest('Refuels', 'GetUserSearchTags').then($refuelsGridFactory.getResolveSuccessFunction());
+            $searchTagsResolve: function ($api, $refuelsGridFactory, localStorageService) {
+                return $api.sendAPIRequest('Refuels', 'GetUserSearchTags', localStorageService.get('$T')).then($refuelsGridFactory.getResolveSuccessFunction());
             },
-            $fuelSupplierResolve: function ($api, $refuelsGridFactory) {
-                return $api.sendAPIRequest('Refuels', 'GetUserFuelSuppliers').then($refuelsGridFactory.getResolveSuccessFunction());
+            $fuelSupplierResolve: function ($api, $refuelsGridFactory, localStorageService) { 
+                return $api.sendAPIRequest('Refuels', 'GetUserFuelSuppliers', localStorageService.get('$T')).then($refuelsGridFactory.getResolveSuccessFunction());
             }
         },
-        css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/ui-grid.min.css', 'js/dist/css/refuels.min.css'], 
+        css: ['js/dist/css/bootstrap.min.css', 'js/dist/css/navigation.min.css', 'js/dist/css/ui-grid.min.css', 'js/dist/css/refuels.min.css', 'js/dist/css/select.min.css'],
     })
     $urlMatcherFactoryProvider.caseInsensitive(true);
     //$locationProvider.html5Mode(true);

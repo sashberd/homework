@@ -1,4 +1,4 @@
-﻿app.factory('$refuelsGridFactory', function ($commonUtils, uiGridValidateService, $api) {
+﻿app.factory('$refuelsGridFactory', function ($commonUtils, uiGridValidateService, $api, localStorageService) {
     return {
 
         /**
@@ -84,7 +84,7 @@
                 isValid = false;
                 this.errorMessageData.refuelErrorMessage += 'Please select pump or driver or vehicle or range of dates in order to search';
             }
-            debugger;
+           
             if (this.endDateTime && this.startDateTime && moment(this.endDateTime).isAfter(moment(this.startDateTime).add(30,'d'))) {
                 isValid = false;
                 this.errorMessageData.refuelErrorMessage += 'The search period can not be more then 30 days';
@@ -227,6 +227,7 @@
                 tagID: this.tagSelectedItem ? this.tagSelectedItem.ID : '-1',
                 driverID: this.driverSelectedItem ? this.driverSelectedItem.DriverBBID : '-1'
             }
+            angular.extend(refuelObject, localStorageService.get('$T'));
             return $api.sendAPIRequest('Refuels', 'SearchRefuels', refuelObject).then(function (response) {
                 if (response.data && response.data.length) {
                     $this.gridOptions.data = response.data.map(function (item, index) {

@@ -225,7 +225,7 @@
     <Content Include="css\login.style.css" />
     <Content Include="css\map.style.css" />
     <Content Include="css\navigation.style.css" />
-    <Content Include="css\multiselect.style.css" />
+    <Content Include="js\special\multiselect.style.css" />
     <Content Include="css\refuels.grid.style.css" />
     <Content Include="css\treeselect.style.css" />
     <Content Include="favicon.ico" />
@@ -264,6 +264,7 @@
     <Content Include="js\local\controllers\login.controller.js" />
     <Content Include="js\local\controllers\map.controller.js" />
     <Content Include="js\local\controllers\refuels.grid.controller.js" />
+    <Content Include="js\local\controllers\widgets\idleTimeCurrentStatus.widget.settings.controller.js" />
     <Content Include="js\local\controllers\widgets\irrigationMotor.widget.settings.controller.js" />
     <Content Include="js\local\controllers\widgets\overspeedingBreakdown.widget.settings.controller.js" />
     <Content Include="js\local\directives\navbarVisibility.directive.js" />
@@ -271,7 +272,9 @@
     <Content Include="js\local\directives\ngxTimer.directive.js" />
     <Content Include="js\local\directives\onKeyEnter.directive.js" />
     <Content Include="js\local\directives\setHeaderStyle.directive.js" />
+    <Content Include="js\local\directives\settings.dynamic.directive.js" />
     <Content Include="js\local\directives\uiGridEditDatepicker.directive.js" />
+    <Content Include="js\local\directives\uiSelectChoices.directive.js" />
     <Content Include="js\local\factories\abstract.factory.js" />
     <Content Include="js\local\factories\api.factory.js" />
     <Content Include="js\local\factories\common.utils.factory.js" />
@@ -285,6 +288,7 @@
     <Content Include="js\local\filters\map.grid.status.filter.js" />
     <Content Include="js\local\filters\map.grid.vehcile.filter.js" />
     <Content Include="js\local\filters\percentage.filter.js" />
+    <Content Include="js\local\filters\uiSelect.oring.properties.filter.js" />
     <Content Include="js\local\modules\dashboard.module.js" />
     <Content Include="js\local\modules\login.module.js" />
     <Content Include="js\local\modules\map.module.js" />
@@ -293,7 +297,7 @@
     <Content Include="js\minified\hmac-sha256.js" />
     <Content Include="js\minified\zenc-base64-min.js" />
     <Content Include="js\semi\angular-treeview.js" />
-    <Content Include="js\semi\angularjs-dropdown-multiselect.js" />
+    <Content Include="js\special\angularjs-dropdown-multiselect.js" />
     <Content Include="js\semi\autoFitColumns.js" />
     <Content Include="js\semi\dateDiff.js" />
     <Content Include="js\semi\dateFormat.js" />
@@ -327,7 +331,7 @@
     <Content Include="templates\templates.js" />
     <Content Include="templates\treeSelect\treeselect.template.html" />
     <Content Include="templates\treeSelect\treeselect.checkbox.template.html" />
-    <Content Include="templates\widgets\common.widget.template.html" />
+    <Content Include="templates\widgets\dynamic.widget.template.html" />
     <Content Include="templates\widgets\dygraph\dygraph.irrigationMotor.settings.widget.template.html" />
     <Content Include="templates\widgets\clock\clock.template.html" />
     <Content Include="templates\widgets\clock\clockWidget.template.html" />

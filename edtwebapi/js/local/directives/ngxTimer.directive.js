@@ -48,8 +48,7 @@
                 }
             }
             var triggerRelink = function () {
-                $scope.current = '00';
-              
+                $scope.current = '00';              
                 $scope.inervalId = null;
                 compileTemplate();
                 calculate();
