@@ -1,4 +1,4 @@
-﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider, $translateProvider, $cssProvider, $validationProvider) {
+﻿app.config(function ($httpProvider, localStorageServiceProvider, ivhTreeviewOptionsProvider, $translateProvider, $cssProvider) {
     $httpProvider.interceptors.push('interceptors');
     localStorageServiceProvider
   .setPrefix('EDT')

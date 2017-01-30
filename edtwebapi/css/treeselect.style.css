@@ -1,4 +1,7 @@
-﻿button#btnMapGroupsFilter > span.caret {
+﻿#btnMapGroupsFilter {
+    margin-top:10px;
+}
+button#btnMapGroupsFilter > span.caret {
     top: 8px;
     position: relative;
     left: 5px;

@@ -1,1 +1,1 @@
-﻿angular.module('dashboard', [ 'obDateRangePicker', 'gridster', 'nvd3', 'ui.grid', 'ui.grid.autoFitColumns', ]);
+﻿angular.module('dashboard', ['obDateRangePicker', 'gridster', 'nvd3', 'ui.grid', 'ui.grid.autoFitColumns', 'ui.grid.exporter', 'ui.select']);

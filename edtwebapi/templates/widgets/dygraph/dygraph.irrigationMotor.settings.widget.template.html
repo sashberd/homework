@@ -17,8 +17,8 @@
     <div class="row mapGridFilters">
         <div class="col-xs-6 col-sm-6 col-md-6">
             <div class="row">
-                <label for="clockWidgetFromDate" class="control-label">Vehicle group</label>
-                <button id="btnMapGroupsFilter" uib-popover-template="'treeSelect/treeselect.template.html'" popover-is-open="popoverIsOpen"
+                <label for="btnVehicleGroup" class="control-label">Vehicle group</label>
+                <button id="btnVehicleGroup" uib-popover-template="'treeSelect/treeselect.template.html'" popover-is-open="popoverIsOpen"
                     ng-click="popoverIsOpen = !popoverIsOpen"
                     popover-trigger="'outsideClick'"
                     popover-placement="bottom" type="button" class="btn btn-default">
@@ -26,7 +26,7 @@
                 </button>
             </div>
             <div class="row">
-                <label for="clockWidgetFromDate" class="control-label">Vehicle type</label>
+                <label for="clockWidgetFromDate" class="control-label">Vehicle</label>
                 <div ng-dropdown-multiselect="" options="vehiclesList" ng-style="{'width':multiselectULMinWidth}" translation-texts="multiSelectCustomTexts"
                     selected-model="multiSelectModel"
                     extra-settings="multiSelectSettings" headers='{ "Nickname": "NICK_NAME", "ID": "VEHICLE_BB_ID"}'>

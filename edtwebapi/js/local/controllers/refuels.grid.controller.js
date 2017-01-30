@@ -1,6 +1,6 @@
 ﻿app.controller('refuelController', function ($scope,$fuelSupplierResolve, $refuelsPumpsResolve, $typesAndSourcesResolve, $driversResolve, $searchTagsResolve, $refuelsGridFactory, $api, $commonUtils) {
     var $this = this;
-
+    
     this.loading = false;
     this.errorMessageData = {};
     this.fuelSupplierResolve = $fuelSupplierResolve;
@@ -9,7 +9,7 @@
     this.driversResolve = $driversResolve;
     this.searchTagsResolve = $searchTagsResolve;
     $refuelsGridFactory.setValidators();
-    /*Accordion open close state */
+    /*Accordion open close state */ 
     this.isOpen = true;
 
     /*Pumps states and typeahead states and functions*/
@@ -26,7 +26,7 @@
         this.selectedRefuelTypeAndSourceOption = typeAndSource;
     }
     /****************************************************************/
-
+ 
     /*drivers states and typeahead functions*/
     this.driversList = $driversResolve;
     this.filterDrivers = $refuelsGridFactory.filterDrivers

@@ -21,7 +21,7 @@
         data: [],
         columnDefs: $mapFactory.getMapGridColumnsDefinition()
     }
-    /* Hel functions for determinign current view of mapview   */
+    /* Help functions for determinign current view of mapview   */
     this.getRowStatus = $mapFactory.getRowStatus;
     this.getRowTooltip = $mapFactory.getRawTooltip;
 

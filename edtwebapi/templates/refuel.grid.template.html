@@ -6,22 +6,25 @@
       </uib-accordion-heading>
       <div class="row">
          <div class="col-lg-3">
-            <label class='label-refuel' for='cbxPumps'>Pump: </label>
-              <div class="overlay-wrapper">
-               <span class="overlay-x" ng-show="refuelCtrl.pumpSelectedItem!=null" ng-click="refuelCtrl.pumpSelectedItem=null">X</span>
-               <input id="cbxPumps" placeholder="Start type pump name or id" type="text" ng-model="refuelCtrl.pumpSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onPumpSelected($item, $model, $label, $event);"
-                  uib-typeahead="pumpData as pump.LIST_ITEM_DISPLAY_NAME_ID for pump in refuelCtrl.filterPumps($viewValue)" class="form-control">
-              
-            </div>            
+            <label class='label-refuel' for='cbxPumps'>Pump: </label>  
+             <ui-select  ng-model="refuelCtrl.pumpSelectedItem" theme="bootstrap" ng-disabled="refuelCtrl.disabled"  id="cbxPumps" title="Choose a pump">
+                <ui-select-match allow-clear="true" placeholder="Start type pump name or id">{{$select.selected.LIST_ITEM_DISPLAY_NAME_ID}}</ui-select-match>
+	             <ui-select-choices  repeat="pumpData  in refuelCtrl.pumpsData | filter:  { LIST_ITEM_DISPLAY_NAME_ID: $select.search}">
+                  <div ng-bind-html="pumpData.LIST_ITEM_DISPLAY_NAME_ID | highlight: $select.search"></div>               
+                </ui-select-choices>
+             </ui-select>   
          </div>
          <div class="col-lg-3">
-            <label class='label-refuel' for='cbxDrivers'>Driver: </label>
-            <div class="overlay-wrapper">
-               <span class="overlay-x" ng-show="refuelCtrl.driverSelectedItem!=null" ng-click="refuelCtrl.driverSelectedItem=null">X</span>
-               <input id="cbxDrivers" placeholder="Start type driver name or id" type="text" ng-model="refuelCtrl.driverSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onDriverSelected($item, $model, $label, $event);"
-                  uib-typeahead="driverData as (driver.DriverBBID +'&emsp;&emsp;&emsp;'+ driver.DriverName) for driver in refuelCtrl.filterDrivers($viewValue)" class="form-control">
-              
-            </div>
+            <label class='label-refuel' for='cbxDrivers'>Driver: </label>          
+             <ui-select id="cbxDrivers"  ng-model="refuelCtrl.driverSelectedItem" theme="bootstrap" ng-disabled="refuelCtrl.disabled"  title="Choose a driver">
+                <ui-select-match allow-clear="true" placeholder="Start type driver name or id">{{$select.selected.DriverBBID}} {{$select.selected.DriverName}}</ui-select-match>
+	             <ui-select-choices position="down" all-choices="refuelCtrl.driversList"  refresh-delay="0" repeat="driverData  in refuelCtrl.driversList | propsFilter:  { DriverName: $select.search,DriverBBID: $select.search} | limitTo: 100">
+                  <div ng-bind-html="driverData.DriverName| highlight: $select.search"></div> 
+                      <small>                      
+                        id: <span ng-bind-html="''+driverData.DriverBBID | highlight: $select.search"></span>
+                      </small>              
+                </ui-select-choices>
+             </ui-select>   
          </div>
          <div class="col-lg-3">
             <p class="input-group">
@@ -39,25 +42,25 @@
       </div>
       <div class="row">
          <div class="col-lg-3">
-            <label class='label-refuel' for='cbxTypeandSource'>Type and source: </label>
-            <div class='btn-group' uib-dropdown keyboard-nav>
-               <button id='cbxTypeandSource' type='button' class='btn btn-default' uib-dropdown-toggle>
-               {{refuelCtrl.selectedRefuelTypeAndSourceOption.PHRASE_NAME || 'Select type and source' }} <span class='caret'></span>
-               </button>
-               <ul class='dropdown-menu' uib-dropdown-menu role='menu' aria-labelledby='simple-btn-keyboard-nav'>
-                  <li role="menuitem" ng-repeat="typeandsource in refuelCtrl.typesAndSourcesList">                             
-                     <a href="" ng-click="refuelCtrl.changeTypeAndSourceSelectedItem(typeandsource)">{{ typeandsource.PHRASE_NAME }}</a>                            
-                  </li>
-               </ul>
-            </div>
+            <label class='label-refuel' for='cbxTypeandSource'>Type and source: </label>           
+              <ui-select id="cbxTypeandSource"  ng-model="refuelCtrl.selectedRefuelTypeAndSourceOption" theme="bootstrap" ng-disabled="refuelCtrl.disabled"   title="Choose a type and source">
+                <ui-select-match allow-clear="true" placeholder="Select type and source">{{$select.selected.PHRASE_NAME}}</ui-select-match>
+	             <ui-select-choices  repeat="typesAndSourcesData  in refuelCtrl.typesAndSourcesList ">
+                  <div ng-bind-html="typesAndSourcesData.PHRASE_NAME| highlight: $select.search"></div>                                   
+                </ui-select-choices>
+             </ui-select>   
          </div>
          <div class="col-lg-3">
             <label class='label-refuel' for='cbxRefuelTags'>Tag ID: </label>
-            <div class="overlay-wrapper">
-               <span class="overlay-x"  ng-show="refuelCtrl.tagSelectedItem!=null" ng-click="refuelCtrl.tagSelectedItem=null">X</span>
-               <input id="cbxRefuelTags" placeholder="Start type tag id" type="text" ng-model="refuelCtrl.tagSelectedItem" ng-model-options="refuelCtrl.modelOptions"  typeahead-on-select="refuelCtrl.onTagSelected($item, $model, $label, $event);"
-                  uib-typeahead="tagData as (tag.V_BB_VEHICLE_ID +'&emsp;&emsp;&emsp;'+ tag.ID) for tag in refuelCtrl.filterTags($viewValue)" class="form-control">
-            </div>
+              <ui-select id="cbxRefuelTags"  ng-model="refuelCtrl.tagSelectedItem" theme="bootstrap" ng-disabled="refuelCtrl.disabled"   title="Choose tag">
+                <ui-select-match allow-clear="true" placeholder="Start type tag id">{{$select.selected.V_BB_VEHICLE_ID}} {{$select.selected.ID}}</ui-select-match>
+	             <ui-select-choices  repeat="searchTagsData  in refuelCtrl.searchTagsList  | propsFilter:  { ID: $select.search,V_BB_VEHICLE_ID: $select.search} ">
+                  <div ng-bind-html="searchTagsData.V_BB_VEHICLE_ID| highlight: $select.search"></div>  
+                       <small>                      
+                        id: <span ng-bind-html="''+searchTagsData.ID | highlight: $select.search"></span>
+                      </small>                                   
+                </ui-select-choices>
+             </ui-select>   
          </div>
 
           <div class="col-lg-3">

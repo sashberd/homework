@@ -1,1 +1,1 @@
-﻿angular.module('refuels.grid', ['ui.grid', 'ui.grid.autoFitColumns',  'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.validate'/*, 'angular-360-no-scope'*/]);
+﻿angular.module('refuels.grid', ['ui.grid', 'ui.grid.autoFitColumns', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.validate', 'ui.select'/*, 'angular-360-no-scope'*/]);

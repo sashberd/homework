@@ -1,4 +1,6 @@
-﻿app.controller('dashboardController', function ($dashboardFactory, $commonUtils, $mapFactory, uiGridConstants) {
+﻿/*according to http://stackoverflow.com/questions/41848541/angularjs-right-using-of-controllers-and-factories controllers should be developed in current style*/
+
+app.controller('dashboardController', function ($scope, $dashboardFactory, $commonUtils) {
 
     /**
      *  Buttom chnage color function
@@ -9,11 +11,9 @@
     }
     /**Local variables **/
     this.isCustomHeaderOpen = true;
-    //this.vehicleList = $vehiclesList;
     this.dashboardFactory = $dashboardFactory;
-    this.getWidgetOption = $dashboardFactory.getWidgetOption
-    //this.showEmptySettingsMessage = true;
-    //this.showSpinner = false;
+    this.getWidgetOption = $dashboardFactory.getWidgetOption;
+    this.vm = $scope;
 
 
     /*Gridster grid init options*/
@@ -39,6 +39,8 @@
      * Create idle time widget by button click
      */
     this.createIdleTimeWidget = $dashboardFactory.createIdleTimeWidget;
+
+    this.getIdleTimeData = $dashboardFactory.getIdleTimeData;
 
     /**
      * create irrigation motor widget by button click
@@ -69,5 +71,5 @@
 
     this.getOverSpeedingDistributionByAmount = $dashboardFactory.getOverSpeedingDistributionByAmount;
 
-
+   
 });

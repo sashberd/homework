@@ -1,7 +1,7 @@
-﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService, $uibModal, $abstractFactory, uiGridConstants, $filter) {
+﻿app.factory('$dashboardFactory', function ($commonUtils, $api, localStorageService, $uibModal, $abstractFactory, uiGridConstants, uiGridExporterConstants, $filter) {
     var widgets = [];
     var settingsData = {};
-    var factory = this;
+
     return {
         /**
          * Getter for widget
@@ -21,8 +21,8 @@
          * Calling api of idle status
          * @returns {Promise} 
          */
-        getIdleTimeCurrentStatus: function () {
-            return $api.sendAPIRequest('Dashboard', 'GetIdleTimeCurrentStatus', angular.extend(localStorageService.get('$T'), {}/*this.getSelectedFilters*/));
+        getIdleTimeCurrentStatus: function (filters) {
+            return $api.sendAPIRequest('Dashboard', 'GetIdleTimeCurrentStatus', angular.extend(localStorageService.get('$T'), filters));
         },
         /**
          * 
@@ -235,7 +235,7 @@
                     color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16),
                     strokeWidth: 1,
                     classed: '',
-                    chartType:'lineChart',
+                    chartType: 'lineChart',
                     yaxisLabel: 'Odometer',
                     xaxisLabel: 'Date',
                     xTickFormat: function (d) {
@@ -468,35 +468,53 @@
         /**
          * Create idle time widget
          */
-        createIdleTimeWidget: function () {
+        getIdleTimeData: function (widget, filters) {
             var $this = this
-            this.dashboardFactory.getIdleTimeCurrentStatus().then(function (response) {
-                var widgetObj = {
-                    id: $commonUtils.generateQuickGuid(),
-                    name: 'Idle time - current status',
-                    sizeY: 1,
-                    sizeX: 2,
-                    template: 'widgets/clock/clock.template.html',
-                    settingsTemplate: 'modal/commonSettings.template.html',
-                    widgetData: {},
-                    widgetResolve: {},
-                    showEmptySettingsMessage: true,
-                    showSpinner: false
-                };
-
+            this.dashboardFactory.getIdleTimeCurrentStatus(filters).then(function (response) {               
                 Object.keys(response.data).forEach(function (item) {
                     var obj = $this.dashboardFactory.genereteIdleStatusObject(item, response.data[item]);
-                    Object.defineProperty(widgetObj.widgetData, Object.keys(obj)[0], {
+                    Object.defineProperty(widget.widgetData, Object.keys(obj)[0], {
                         value: obj[Object.keys(obj)[0]],
                         writable: true,
                         enumerable: true,
                         configurable: true
                     });
-
                 });
-
-                $this.widgets.push(widgetObj);
+                var index = $this.widgets.indexOf(widget);
+                if (index > -1) {
+                    $this.widgets[index] = widget;
+                    $this.vm.$broadcast('updateClockWidget');
+                }
+                else {
+                    $this.widgets.push(widget);
+                }
             });
+        },
+
+        createIdleTimeWidget: function () {
+            var widgetObj = {
+                id: $commonUtils.generateQuickGuid(),
+                title: 'Idle time - current status options',
+                name: 'Idle time - current status',
+                sizeY: 1,
+                sizeX: 2,
+                template: 'widgets/clock/clock.template.html',
+                //settingsTemplate: 'modal/commonSettings.template.html',
+                widgetData: {},
+                widgetResolve: {},
+                widgetApi: [],
+                settingsControllerName: 'idleTimeCurrentStatus.widget.settings.controller',
+                settingsControllerAsAlias: 'idleTimeCurrentStatusSettingsCtrl',
+                showEmptySettingsMessage: true,
+                showSpinner: false,
+                widgetResolve: {
+                    $groupsData: $abstractFactory.getGroupsData(),
+                    $vehicleList: $abstractFactory.getVehicleList(),
+                    $vehicleTypesList: $abstractFactory.getVehicleTypesList()
+                },
+                settingsTemplateParts: { showCompanyTreeSelect: true, showCompanyVehicles: true, showCompanyVehicleType: true }
+            };
+            return widgetObj;
         },
         /**
          * Creates irrigation motor widget and push it ro widgets
@@ -508,8 +526,8 @@
                 settingsTitle: 'Irrigation motor options',
                 sizeY: 1,
                 sizeX: 3,
-                template: 'widgets/common.widget.template.html',//TODO to template
-                settingsTemplate: 'widgets/dygraph/dygraph.irrigationMotor.settings.widget.template.html',
+                template: 'widgets/dygraph/dygraph.irrigationMotor.widget.template.html',//'widgets/common.widget.template.html',//TODO to template
+                //settingsTemplate: 'widgets/dygraph/dygraph.irrigationMotor.settings.widget.template.html',
                 widgetData: [],
                 widgetOptions: [],
                 widgetApi: [],
@@ -520,7 +538,8 @@
                     $vehicleList: $abstractFactory.getVehicleList()
                 },
                 showEmptySettingsMessage: true,
-                showSpinner: false
+                showSpinner: false,
+                settingsTemplateParts: { showDateRangePicker: true, showCompanyTreeSelect: true, showCompanyVehicles: true }
             });
         },
         /**
@@ -546,7 +565,7 @@
             };
             var resolve = angular.extend(commonResolves, widget.widgetResolve);
             $uibModal.open({
-                templateUrl: widget.settingsTemplate,
+                templateUrl: 'widgets/dynamic.widget.template.html',//widget.settingsTemplate,
                 controllerAs: widget.settingsControllerAsAlias,
                 bindToController: true,
                 controller: widget.settingsControllerName,
@@ -595,8 +614,8 @@
                 settingsTitle: 'Over speeding breakdown by amount options',
                 sizeY: 1,
                 sizeX: 3,
-                template: 'widgets/common.widget.template.html',//TODO to template
-                settingsTemplate: 'widgets/pieChart/pieChart.overspeedingBreakdown.settings.widget.template.html',
+                template: 'widgets/pieChart/pieChart.overspeedingBreakdown.widget.template.html',//'widgets/common.widget.template.html',//TODO to template
+                //settingsTemplate: 'widgets/pieChart/pieChart.overspeedingBreakdown.settings.widget.template.html',
                 widgetData: [],
                 widgetOptions: [],
                 widgetApi: [],
@@ -607,7 +626,8 @@
                     $vehicleTypesList: $abstractFactory.getVehicleTypesList()
                 },
                 showEmptySettingsMessage: true,
-                showSpinner: false
+                showSpinner: false,
+                settingsTemplateParts: { showDateRangePicker: true, showCompanyTreeSelect: true, showCompanyVehicleType: true }
             });
         },
         getOverSpeedingDistributionByAmount: function (filterObject, widgetId) {
@@ -626,12 +646,44 @@
                     data: response.data,
                     enableHorizontalScrollbar: 0,
                     enableVerticalScrollbar: 0,
+                    enableGridMenu: false,
+                    exporterPdfDefaultStyle: { fontSize: 9 },
+                    exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
+                    exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'white', fillColor: '#6495ED' },
+                    exporterPdfHeader: { text: "Over Speeding Distribution By Amount Report", style: 'headerStyle' },
+                    exporterPdfFooter: function (currentPage, pageCount) {
+                        return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+                    },
+                    exporterPdfCustomFormatter: function (docDefinition) {
+                        docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+                        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+                        docDefinition.content[0].table.body.forEach(function (item, index, array) {
+                            if (index /*&& index != array.length - 1*/) {
+                                item.forEach(function (cell, ind, arr) {
+                                    if (!ind)
+                                        arr[ind] = { text: cell, fillColor: $this.gridOptions.data[index - 1].colors.medium, color: 'white' }
+                                    else
+                                        arr[ind] = { text: cell, fillColor: '#FFF8DC', color: 'black' }
+                                });
+                            }
+                        });
+                        return docDefinition;
+                    },
+                    exporterPdfOrientation: 'portrait',
+                    exporterPdfPageSize: 'LETTER',
+                    exporterPdfMaxGridWidth: 500,
+                    onRegisterApi: function (gridApi) {
+                        $this.gridApi = gridApi;
+                    },
+                    downloadPDF: function () {
+                        $this.gridApi.exporter.pdfExport(uiGridExporterConstants.VISIBLE, uiGridExporterConstants.ALL);
+                    },
                     columnDefs: [
                     {
                         name: 'Occurences',
                         field: 'OVERSPEED_AMOUNT',
                         width: 100,
-                        cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>'
+                        cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\', \'color\':\'white\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>'
                     },
                     {
                         name: 'Vehicles',
@@ -646,7 +698,7 @@
                          width: '*',
                          field: 'percentage',
                          cellTemplate: '<div ng-style="colRenderIndex?{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.light}}\'}:{\'background-color\':\'{{grid.options.data[rowRenderIndex].colors.medium}}\'}" class="ui-grid-cell-contents" >{{COL_FIELD }}</div>',
-                         footerCellTemplate: '<img class="reports" src="js/dist/css/images/reports.png"/>'
+                         footerCellTemplate: '<img ng-click="grid.options.downloadPDF()" class="reports" src="js/dist/css/images/reports.png"/>'
                      }
                     ]
                 };
@@ -674,6 +726,7 @@
                 };
                 widget.widgetData = response.data;
                 widget.showSpinner = false;
+
                 widget.template = 'widgets/pieChart/pieChart.overspeedingBreakdown.widget.template.html';
             });
 
@@ -695,7 +748,7 @@
             ltGreen = Math.min(ltGreen, 255);
             var ltBlue = Math.min(Math.ceil(blue * 1.5), 255);
             light = 'rgb(' + (ltRed) + ',' + (ltGreen) + ',' + ltBlue + ')'; //RGB value
-            return { dark: dark, light: light, medium: medium }
+            return { dark: $commonUtils.rgb2hex(dark), light: $commonUtils.rgb2hex(light), medium: $commonUtils.rgb2hex(medium) }
         }
     }
 });

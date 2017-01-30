@@ -5,12 +5,12 @@
       </uib-accordion-heading>
      
       <button class="btn " ng-class="{' btn-success':dashboardCtrl.idleTimeSelected,'btn-info':!dashboardCtrl.idleTimeSelected}" 
-          ng-click="dashboardCtrl.createIdleTimeWidget();dashboardCtrl.changeClass('idleTimeSelected');">First Button</button><!--IDLE TIME-CURRENT STATUS-->
+          ng-click="dashboardCtrl.getIdleTimeData(dashboardCtrl.createIdleTimeWidget(),{});dashboardCtrl.changeClass('idleTimeSelected');">First Button</button><!--IDLE TIME-CURRENT STATUS-->
 
       <button class="btn " ng-class="{' btn-success':dashboardCtrl.irrigationMotorSelected,'btn-info':!dashboardCtrl.irrigationMotorSelected}" 
           ng-click="dashboardCtrl.createIrrigationMotorWidget();dashboardCtrl.changeClass('irrigationMotorSelected');">Second Button</button><!--Irrigation Motor status-->
 
-       <button class="btn " ng-class="{' btn-success':dashboardCtrl.overspeedingBreakdownSelected,'btn-info':!dashboardCtrl.overspeedingBreakdownSelected}" 
+       <button class="btn " ng-class="{' btn-success':dashboardCtrl.overspeedingBreakdown,'btn-info':!dashboardCtrl.overspeedingBreakdown}" 
           ng-click="dashboardCtrl.createOverspeedingBreakdownWidget();dashboardCtrl.changeClass('overspeedingBreakdown');">Third Button</button><!--Over speeding breakdown by amount-->
    
 </div>
